@@ -1,5 +1,6 @@
 # README #
-
+To install #Coq#, please follow the linke https://coq.inria.fr/download
+To run the above files, 
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
