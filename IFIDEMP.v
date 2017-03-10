@@ -1,3 +1,4 @@
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
 Load "IFTF".
 
 (***************************IFIDEMP***********************************************************)
@@ -11,7 +12,6 @@ simpl.
 rewrite <-beq_nat_refl.
 rewrite IFTRUE_B.
 rewrite IFFALSE_B.
-
 rewrite IFEVAL_B with(b2:=b4).
 reflexivity.               
 Qed.

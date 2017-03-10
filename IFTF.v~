@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
-Load "axioms".
+Load "tactics1".
 (**tactics***)
 Ltac restr_proj p1  := apply RESTR_proj with (p:= p1) ; unfold proj_at_pos  ;  simpl.
 Ltac restr_proj_in p1 H  := apply RESTR_proj with (p:= p1) in H ; unfold proj_at_pos in H ;  simpl in H.
@@ -29,7 +29,7 @@ Ltac restr_swap p3 p4 L1 L2 :=
 Ltac restr_swap_in p3 p4 H := apply RESTR_swap with (p1:= p3) (p2 := p4) in H; unfold swap_mylist in H;  simpl in H.
 
 
-(***apply tactic t n times**)
+(****************apply tactic t n times****************)
 Ltac aply n tac :=
 match n with 
 | 0 =>  idtac
@@ -38,7 +38,7 @@ match n with
 end.
 
 
-(**apply tactic t n times in hyps **)
+(*****************apply tactic t n times in Hypoothesis ***************)
 Ltac aply_in n tac H := 
 match n with
 | 0 =>  idtac
@@ -152,18 +152,19 @@ try apply DDH in DDH1.
 
 Axiom RESTR_rev: forall {m} (ml1 ml2: mylist m), ml1 ~ ml2 -> (reverse ml1) ~ (reverse ml2).
 
-(***apply FRESHIND**)
+(******apply FRESHIND**************************)
 Ltac fr_ind n1 n2 H1 := 
 match goal with
 |[ H1: ?L1 ~ ?L2 |- _ ] => assert(  ((clos_mylist (L1++L2)) = true) /\ ( (Fresh [ n1] (L1++L2)) = true) /\ ( (Fresh [ n2] ( L1 ++ L2)) = true) /\  (L1 ~ L2))
 end.
+
 
 Ltac aply_fr_ind :=
 match goal with
 | [ H5: context[clos_mylist _ ] |- _] => apply FRESHIND in H5; simpl in H5
 end.
 Ltac fresh_ind n1 n2 H := fr_ind n1 n2 H; repeat ( try split;  simpl;  try reflexivity ; try assumption); aply_fr_ind. 
-(**apply FUNCApp**)
+(**************apply FUNCApp********************************)
   
 Ltac funapp_fm_in  g H :=  apply FUNCApp_mconst with (m:= g) in H ; simpl in H.
 Ltac funapp_f1_in g n1 H := apply FUNCApp_f1 with (f1:= g) (p:= n1) in H ; simpl in H.
@@ -175,7 +176,7 @@ Ltac funapp_f3m_in g n1 n2 n3 H:= apply FUNCApp_f3m with (f3m:= g) (p1:= n1) (p2
 Ltac funapp_f4m_in g n1 n2 n3 n4 H:= apply FUNCApp_f4m with (f4m:= g) (p1:= n1) (p2:= n2) (p3:= n3) (p4:= n4)  in H; simpl in H.
 Ltac funapp_sublist_in n1 n2 H:= apply FUNCApp_sublist with (m:= n1) (n:= n2) in H; unfold sublist in H; simpl in H.
 
-(**apply RESTR**)
+(*******************apply RESTR***************************************)
  Ltac reswap_in n1 n2 H:= apply RESTR_swap with (p1:= n1) (p2:= n2) in H; unfold swap_mylist in H; simpl in H.
 Ltac reproj_in n1 n2 H:= apply RESTR_proj with (p1:= n1) (p2:= n2) in H; unfold proj_at_pos in H; simpl in H.
 Ltac restrproj_in n1 H  := apply  RESTR_proj with (p:= n1) in H; unfold proj_at_pos  in H; simpl in H.
