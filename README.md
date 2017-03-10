@@ -1,29 +1,17 @@
-# README #
+<!--Readme file-->
+<html>
+<head>
+<title>Install Coq</title>
+</head>
+<body>
+<p> Download and install <b> Coq </b> at the following link. 
 
-This README would normally document whatever steps are necessary to get your application up and running.
+<a href="https://coq.inria.fr/">Coq installation</a>
 
-### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+<h1>Compile the Proofs</h1>
+This directory contains files _CoqProject and Makefile, to compile the proofs use the command make. 
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+</body>
+</html>
