@@ -1,0 +1,3 @@
+coqc -I .
+
+IND_DEFINITIONS.v IND_MORPHISMS.v CORE_AXIOMS.v AUX_AXIOMS.v EQ_THEORY.v tactics1.v IFTF.v IFIDEMP.v IFMORPH.v andB_notb.v Example9.v Example10.v ExtraProof_1.v Example11.v Example12.v EQBRANCH.v Example13.v Example14.v Example15.v Example16.v Example17.v Example19.v Example 20.v extra_theorems.v tactics.v DH2.v tact_DH2.v DH2_Pi1-Pi2''.v DH2_Pi2''-Pi1'.v DH2_Pi1'-Pi2.v DH2_Pi1-Pi2.v  
