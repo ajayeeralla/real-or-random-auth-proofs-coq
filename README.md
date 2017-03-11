@@ -42,8 +42,10 @@ These files are in the order. For example, first file should be compiled before 
 22. ex19.v 
 23. ex20.v 
 24. auxthms.v 
-    24.1.DHprot.v
-       
+    1. DHprot.v
+        1. real_or_random.v
+    2. dsaxioms.v 
+        1. auth.v
 
 
 ## Authors
