@@ -13,7 +13,7 @@ To download and install Coq on your machine, follow the link [install coq](https
 ### Compile the Proofs
 
 This directory already has **Makefile** in it. Use command **make** to compile all the proofs.
-To compile a single file _file.v_, use could use **coqc** command.
+To compile a single file _file.v_, you could use **coqc** command.
 
 ### Dependency list
 These files are in the order. For example, first file should be compiled before second and so on.
@@ -43,9 +43,9 @@ These files are in the order. For example, first file should be compiled before 
 23. ex20.v 
 24. auxthms.v 
     24.1.DHprot.v
-         24.1.1.real_or_random.v
+           24.1.1.real_or_random.v
     24.2.dsaxioms.v 
-         24.2.1.auth.v
+            24.2.1.auth.v
 
 
 ## Authors
