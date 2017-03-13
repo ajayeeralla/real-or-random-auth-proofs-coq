@@ -1,10 +1,10 @@
 ### Machine-checked Proofs
 
-These are the mechine-checked proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, and written in Coq.
+The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, written in Coq.
 
 ### Prerequisites
 
-To compile these proofs, you will need to have installed Coq on your local machine.
+To compile the files, you will need to have installed Coq on your local machine.
 
 ### Installing
 
@@ -12,11 +12,12 @@ To download and install Coq on your machine, follow the link [install coq](https
 
 ### Compile the Proofs
 
-This directory already has **Makefile** in it. Use command **make** to compile all the proofs.
-To compile a single file _file.v_, you could use **coqc** command.
+The directory machine-checked-proofs already has **Makefile** in it.
+In order to compile all the files, use the command **make**.
+To compile a single file _file.v_, you could use **coqc** command. For example, coqc _file.v_.
 
 ### File Dependency List
-These files are in the order. For example, first file should be compiled before second and so on.
+The following files are in the order. For example, first file should be compiled before second and so on.
 
 1. definitions.v 
 2. morphisms.v 
@@ -50,9 +51,5 @@ These files are in the order. For example, first file should be compiled before 
 
 ## Authors
 
-* **Ajay Kumar Eeralla** --University of Missouri
-* **Rohit Chadha** -- University of Missouri
-
-
-
-
+* **Ajay Kumar Eeralla** --University of Missouri-Columbia
+* **Rohit Chadha** -- University of Missouri-Columbia
