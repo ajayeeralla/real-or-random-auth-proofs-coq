@@ -51,5 +51,5 @@ The following files are in the order. For example, first file should be compiled
 
 ## Authors
 
-* **Ajay Kumar Eeralla** --University of Missouri-Columbia-Columbia
-* **Rohit Chadha** -- University of Missouri-Columbia-Columbia
+* **Ajay Kumar Eeralla** --University of Missouri-Columbia
+* **Rohit Chadha** -- University of Missouri-Columbia
