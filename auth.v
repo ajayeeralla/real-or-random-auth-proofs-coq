@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
 Load "dsaxioms".
 Section dh_auth.
 (*Authentication modeled with the notion of indistinguishability*)

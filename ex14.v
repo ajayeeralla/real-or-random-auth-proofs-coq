@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
 Load "ex13".
 
 (*****************forall x y, (EQ_M x y) = (EQ_M y x)**********)

@@ -1,4 +1,4 @@
- (*Authors: Ajay Kumar Eeralla, University of Missouri*)
+ (*Authors: Ajay Kumar Eeralla, University of Missouri-Columbia*)
 Load "ex15".
 (*********************************************************************)
 (***************if not(b) then x else y = if b then y else x***********)

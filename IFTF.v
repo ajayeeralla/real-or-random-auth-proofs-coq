@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
 Load "axioms".
 (**tactics***)
 Ltac restr_proj p1  := apply RESTR_proj with (p:= p1) ; unfold proj_at_pos  ;  simpl.

@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*) 
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*) 
 Load "ex12".
 (*****************************************EQBRANCH**********************************************************) 
 (********if EQ(x1 , x2) then t[x1] else t' = if EQ(x1 ,x2) then t[x2] else t'*******************************)

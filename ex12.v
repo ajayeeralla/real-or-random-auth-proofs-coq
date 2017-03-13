@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
 Load "ex11".
 
 (********************if b then x1 else y1 = if b then x2 else y2 -> if b then t[x1] else t'[y1] = if b then t[x2] else t'[y2]************************)

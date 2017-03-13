@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*) 
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*) 
 Load "IFIDEMP".
 
 Theorem IFMORPH_M1: forall ( x y z : message) (n1 n2:nat),

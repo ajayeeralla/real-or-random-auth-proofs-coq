@@ -1,4 +1,4 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
+(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
 Load "ex16".
 
 Theorem IFMORPH_M4 : forall (n1:nat) (m1 m2 m3 : message), (if_then_else_M (Bvar n1) m1 (if_then_else_M (Bvar (n1+1)) m2 m3) ) # (if_then_else_M (Bvar (n1+1)) (if_then_else_M (Bvar n1) m1 m2)(if_then_else_M (Bvar n1) m1 m3)).
