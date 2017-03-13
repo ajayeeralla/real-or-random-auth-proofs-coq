@@ -1,6 +1,6 @@
 ### Machine-checked Proofs
 
-The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, written in Coq.
+The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, and are written in Coq.
 
 ### Prerequisites
 
