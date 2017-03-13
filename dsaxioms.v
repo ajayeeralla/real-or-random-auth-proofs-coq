@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
-Load "tactics".
+Load "auxthms".
              
 (*subterms of list of terms**)
 

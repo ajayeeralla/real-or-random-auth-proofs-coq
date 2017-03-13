@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University Missouri*)
-Load "Example20".
+Load "ex20".
 
 (*Aux theorems*)
 

@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
-Load "tactics".
+Load "auxthms".
 
 (**Two sessions: initiator, responder*)
 (**Real or random Secrecy**)

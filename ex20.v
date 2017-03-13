@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
-Load "Example19".
+Load "ex19".
 
 
 (*****************Fresh(G,g,a,b,c,d) /\ (clos_bol b)->[G;g;g^a;g^b;g^c; if_then_else_B b (g^ab) (g^bc)]~[G;g;g^a;g^b;g^c;g^d]***********************)

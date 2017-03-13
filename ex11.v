@@ -1,5 +1,5 @@
 (*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri*)
-Load "corex10".
+Load "cor_ex10".
 
 (*******************if EQ(x1 , x2) then x1 else y = if EQ(x1 ,x2) then x2 else y***************************************)
 

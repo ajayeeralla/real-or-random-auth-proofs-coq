@@ -1,3 +1,3 @@
 coqc -I .
 
-definitions.v morphisms.v axioms.v IFTF.v IFIDEMP.v IFMORPH.v andbprops.v IFTF.v IFIDEMP.v IFMORPH.v ex9.v ex10.v cor-ex10.v ex11.v ex12.v eqbranch.v ex13.v ex14.v ex15.v ex16.v ex17.v ex19.v ex20.v auxthms.v DHprot.v real-or-random.v dsaxioms.v auth.v
+definitions.v morphisms.v axioms.v IFTF.v IFIDEMP.v IFMORPH.v andbprops.v IFTF.v IFIDEMP.v IFMORPH.v ex9.v ex10.v cor_ex10.v ex11.v ex12.v eqbranch.v ex13.v ex14.v ex15.v ex16.v ex17.v ex19.v ex20.v auxthms.v DHprot.v real_or_random.v dsaxioms.v auth.v
