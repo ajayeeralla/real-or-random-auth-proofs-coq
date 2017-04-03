@@ -2,7 +2,7 @@
 Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, Rohit Chadha <chadhar@missouri.edu>            
 Licensed under the MIT license, see the LICENSE file or http://en.wikipedia.org/wiki/Mit_license                             
 
-<!-- The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, and are written in Coq. -->
+<!--  The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, and are written in Coq.  -->
 
 ### Prerequisites
 
