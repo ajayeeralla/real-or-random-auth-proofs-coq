@@ -1,9 +1,7 @@
-### Machine-checked Proofs of security properties, real-or-random secrecy and authentication, of Diffie-Hellman and Station-to-Station protocols respectively
-Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     
-                      Rohit Chadha <chadhar@missouri.edu>            
-                                                                     
- Licensed under the MIT license, see the LICENSE file or             
- http://en.wikipedia.org/wiki/Mit_license                             
+### Formalization of the machine-checked proofs of real-or-random secrecy of the
+Diffie-Hellman (DH) protocol, and authentication of the Station-to-Station (STS) protocol in Coq
+Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, Rohit Chadha <chadhar@missouri.edu>            
+Licensed under the MIT license, see the LICENSE file or http://en.wikipedia.org/wiki/Mit_license                             
 
 
 
