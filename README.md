@@ -12,7 +12,7 @@ To compile the files, you will need to have installed Coq on your local machine.
 
 To download and install Coq on your machine, follow the link [install coq](https://coq.inria.fr/download) here.
 
-### Compile the Proofs
+### Compile the proofs
 
 The directory machine-checked-proofs already has **Makefile** in it.
 
