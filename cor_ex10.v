@@ -1,6 +1,13 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, Univeristy of Missouri*) 
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "ex10".
-(********************x=y <-> EQ(x,y) = true************************)
+
+(** This library a defines a theorem that states, [x = y <-> EQ(x, y) = true] *)
 
 (*Axiom test: forall  (x:Bool) (P:Bool -> Prop),
        P x -> forall y : Bool, x ## y -> P y.*)

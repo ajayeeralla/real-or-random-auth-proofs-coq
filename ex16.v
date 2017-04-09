@@ -1,7 +1,13 @@
- (*Authors: Ajay Kumar Eeralla, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "ex15".
-(*********************************************************************)
-(***************if not(b) then x else y = if b then y else x***********)
+(**  This library defines a theorem that states, [if not(b) then x else y = if b then y else x ].
+(*<!-- Of course, we use ## (resp. ##) for message (resp. Bool) in lieu of [=]. -->*) *)
 
 Theorem Example16_B :  forall (n:nat) (b1 b2 :Bool), (if_then_else_B (notb  (Bvar n)) b1 b2) ## (if_then_else_B (Bvar n) b2 b1).
 Proof.

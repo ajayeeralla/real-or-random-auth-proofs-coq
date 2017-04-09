@@ -1,8 +1,15 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "IFTF".
 
-(***************************IFIDEMP***********************************************************)
-(****if b then (if b then x1 else y1) else (if b then x2 else y2) # if b then x1 else y2 *****)
+(** This library defines a theorem [IFIDEMP] and its proof. Notice that we use [#] (resp. [##]) for [message] (resp. [Bool]) in lieu of [=].
+
+ [if b then (if b then x1 else y1) else (if b then x2 else y2) # if b then x1 else y2] *)
 
 Theorem IFIDEMP_B : forall (n: nat)(b1 b2 b3 b4 : Bool), (if_then_else_B (Bvar n) (if_then_else_B (Bvar n) b1 b2) (if_then_else_B (Bvar n) b3 b4)) ## (if_then_else_B (Bvar n) b1 b4).
 Proof.

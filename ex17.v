@@ -1,37 +1,18 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "ex16".
-
-Theorem IFMORPH_M4 : forall (n1:nat) (m1 m2 m3 : message), (if_then_else_M (Bvar n1) m1 (if_then_else_M (Bvar (n1+1)) m2 m3) ) # (if_then_else_M (Bvar (n1+1)) (if_then_else_M (Bvar n1) m1 m2)(if_then_else_M (Bvar n1) m1 m3)).
-Proof. 
-intros.
-rewrite <- IFSAME_M with (b:= (Bvar (n1+1))) (x:= (if_then_else_M (Bvar n1)  m1 (if_then_else_M (Bvar (n1+1)) m2 m3))).
-rewrite IFEVAL_M.
-simpl.
-rewrite <- beq_nat_refl.
-rewrite IFTRUE_M.
-rewrite IFFALSE_M.
-assert(H: beq_nat n1 (n1 +1) = false).
-induction n1.
-simpl.  reflexivity.
-simpl. 
-rewrite IHn1. 
-reflexivity. 
-rewrite H.
- rewrite IFEVAL_M with (t1:=(if_then_else_M (Bvar n1) m1 m2) )(t2:= (if_then_else_M (Bvar n1) m1 m3) ).
-simpl.
-rewrite H.
-reflexivity.
-Qed.
-
-
-Ltac dropone_in H:= restr_proj_in 1 H.
-
-(**************************************************************************************************)
-(**************************************************************************************************)
-(**************************************
-For variables b1 , b2 , n1 , n1' , n2 , n2' , n3 , n3' , n4' : b1 , b2 , n1 , n2 , n3 ~ b1, b2, n1', n2',n3' ~ b1, b2, n4',n2',n3' -> 
+(** This library defines a theorem that states, 
+[[
+For variables b1, b2, n1, n1', n2, n2', n3, n3', n4' : b1, b2, n1, n2, n3 ~ b1, b2, n1', n2, n3' ~ b1, b2, n4', n2', n3' -> 
 if b1 then n1 else (if b2 then <n2, n3> else <n1, n2 ,n3> ~ if not(b2 ) then (if b1 then n1' else <n1' , n2' , n3'>)
-else (if b1' then n4' else < n2' , n3' >) *******************************************************************)
+else (if b1' then n4' else < n2' , n3' >).
+]] 
+*)
 
 Theorem Example17: forall (n11  :nat) (n1  n2  n3 n1' n2' n3' n4' : nat),
 [bol (Bvar n11) ; bol (Bvar (n11 + 1)); msg (N n1); msg (N n2); msg (N n3)] ~ [bol (Bvar n11) ; bol (Bvar (n11 + 1)); msg (N n1'); msg (N n2'); msg (N n3')] /\ [bol (Bvar n11); bol (Bvar (n11 + 1)); msg (N n1'); msg (N n2'); msg (N n3')] ~ [bol (Bvar n11) ; bol (Bvar (n11 + 1)); msg (N n4'); msg (N n2'); msg (N n3')] -> 

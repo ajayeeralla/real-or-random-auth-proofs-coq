@@ -1,8 +1,15 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "ex13".
 
-(*****************forall x y, (EQ_M x y) = (EQ_M y x)**********)
+(** This library defines a theorem that states, 
 
+[forall x y, (EQ_M x y) = (EQ_M y x)]. *)
 
 Theorem Example14_M: forall (n1 m1 : nat),  (EQ_M (Mvar n1) (Mvar m1) ) ##  (EQ_M (Mvar m1) (Mvar n1)).
 Proof.
@@ -15,11 +22,9 @@ assert ( Eq: (EQ_M (Mvar n1) (Mvar n1)) ## TRue).
 apply EQmsg.
 reflexivity. 
 rewrite <- Eq in H.
-
 assert(H2: ( if_then_else_B (EQ_M (Mvar n1) (Mvar m1)) [[ (n1+m1+1):= (Mvar n1)]](EQ_M (Mvar (n1+m1 +1)) (Mvar n1))
       FAlse) ## (if_then_else_B (EQ_M (Mvar n1) (Mvar m1)) [[ (n1+m1+1):= (Mvar m1)]](EQ_M (Mvar (n1+m1+1)) (Mvar n1))
       FAlse)).
-
 apply EQ_BRmsg_bol with (n1:= n1)(n2:= m1)(n3:=(n1+m1+1))(b1:= (EQ_M (Mvar (n1+m1+1)) (Mvar n1))) (b2:= FAlse).
 simpl in H2.
 assert(H4: n1<> n1+m1+1).
@@ -32,9 +37,7 @@ rewrite H3 in H2.
 simpl. 
 rewrite <- beq_nat_refl in H2.
 rewrite H2 in H.
-
 assert(H5 :  (Bvar 1) ##  (if_then_else_B (Bvar 1) TRue FAlse)).
-
 rewrite IFTF with (n:=1). reflexivity.
 apply Forall_ELM_EVAL_B2 with (n:=1)(b:= (EQ_M (Mvar m1) (Mvar n1))) in H5 .
 simpl in H5.

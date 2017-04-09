@@ -1,10 +1,15 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "cor_ex10".
 
-(*******************if EQ(x1 , x2) then x1 else y = if EQ(x1 ,x2) then x2 else y***************************************)
+(** This library defines a theorem that states, 
 
-
-
+[if EQ(x1 , x2) then x1 else y = if EQ(x1 ,x2) then x2 else y] *)
 
 Theorem Example11_M:   (if_then_else_M (EQ_M  (Mvar 1) (Mvar 2)) (Mvar 1) (Mvar 3)) # (if_then_else_M (EQ_M  (Mvar 1) (Mvar 2)) (Mvar 2) (Mvar 3)) .
 Proof.
@@ -40,7 +45,6 @@ simpl  in H6.
 rewrite H6.
 apply IFSAME_B.
 Qed.
-
 
 Theorem Example11_B:    (if_then_else_B (EQ_B  (Bvar 1) (Bvar 2)) (Bvar 1) (Bvar 3)) ## ( if_then_else_B (EQ_B  (Bvar 1) (Bvar 2)) (Bvar 2) (Bvar 3) ).
 Proof.

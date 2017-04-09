@@ -1,5 +1,14 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "eqbranch".
+
+(** This library defines a theorem, [(EQ_B TRue FAlse)] = FAlse *)
 
 Theorem Ex13bol:  (EQ_B  TRue FAlse) ##  FAlse.
 Proof.

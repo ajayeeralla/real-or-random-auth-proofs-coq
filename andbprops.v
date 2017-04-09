@@ -1,9 +1,18 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
+
 Load "IFMORPH".
-(*andB properties*)
+(** * [andB] properties *)
 
+(** This library defines some of the properties of [andB]. *)
+
+(** [FAlse] if one of them is [FAlse]. *)
 Lemma andB_FAlse_intro1 : forall b1 b2 : Bool, b1 ## FAlse -> b1 & b2 ## FAlse.
-
 Proof.
 intros.
 unfold andB .
@@ -20,7 +29,6 @@ Proof. intros.  unfold andB. apply IFSAME_B. Qed.
 Lemma andB_FAlse_l : forall b: Bool, FAlse & b ## FAlse.
 Proof. intros. unfold andB. apply IFFALSE_B. Qed.
 
-
 Lemma andB_diag : forall n, (Bvar n) & (Bvar n) ## (Bvar n).
 Proof.  intros. unfold andB. rewrite IFEVAL_B. simpl. 
 rewrite <- beq_nat_refl.
@@ -28,6 +36,7 @@ rewrite <- beq_nat_refl.
 reflexivity.
 Qed.
 
+(** Invariant under [TRue]. *)
 
 Lemma andB_TRue_r : forall b:Bool, b & TRue ## b.
 
@@ -43,14 +52,12 @@ Proof.  intros. unfold andB.
 apply IFTRUE_B.
    Qed.           
 
-
-
-
 Lemma andB_notb_r : forall n, (Bvar n) & (notb (Bvar n)) ## FAlse.
 
 Proof. intros. unfold andB .  unfold notb.  rewrite IFEVAL_B. simpl. rewrite <- beq_nat_refl. 
 rewrite IFTRUE_B. rewrite IFSAME_B. reflexivity. Qed.
 
+(** [andB] is commutative. *)
 
 Lemma andB_comm1: forall n1 n2 , ( (Bvar n1) & (Bvar n2))  ## ( (Bvar n2) & (Bvar n1)).
 
@@ -60,10 +67,11 @@ rewrite IFMORPH_B1 with (n1:= n2) (n2:=n1). rewrite IFTF with (n:= n1). rewrite 
 
 Axiom andB_comm: forall (b1 b2: Bool), (b1 & b2) ## (b2 & b1).
 
-(************************************************************)
- Lemma andB_assoc1 : forall n1 n2 n3, (Bvar n1) & ((Bvar n2) & (Bvar n3)) ##( ((Bvar n1) & (Bvar n2)) & (Bvar n3)).
+(** [andB] is associative *)
 
- Proof. intros. unfold andB.
+Lemma andB_assoc1 : forall n1 n2 n3, (Bvar n1) & ((Bvar n2) & (Bvar n3)) ##( ((Bvar n1) & (Bvar n2)) & (Bvar n3)).
+
+Proof. intros. unfold andB.
 pose proof(andB_comm1).
 unfold andB in H.
 pose proof (IFMORPH_B1).
@@ -82,9 +90,7 @@ intros.
 unfold andB in H.
 pose proof(IFSAME_B b (if_then_else_B a b FAlse)).
 Admitted.
-Lemma andB_TRue_intro :
-  forall b1 b2:Bool, b1 ## TRue /\ b2 ## TRue -> (andB b1 b2) ## TRue.
-
+Lemma andB_TRue_intro : forall b1 b2:Bool, b1 ## TRue /\ b2 ## TRue -> (andB b1 b2) ## TRue.
 Proof. intros.
 inversion H.
 unfold andB.
@@ -99,7 +105,7 @@ apply andB_prop.
 apply andB_TRue_intro.
 Qed.
 
-(*******************notb properties*****)
+(** [notb] properties *)
 
 Lemma notB_involutive : forall n, (notb (notb (Bvar n))) ## (Bvar n).
 
@@ -136,7 +142,7 @@ intros. rewrite H. unfold notb.
 rewrite IFTRUE_B. reflexivity. Qed.
 
 
-(********************andB complementation************)
+(** [andB] complement *)
 
 
 

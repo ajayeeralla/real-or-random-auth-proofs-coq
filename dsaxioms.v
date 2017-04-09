@@ -1,7 +1,15 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "auxthms".
              
-(*subterms of list of terms**)
+(** This library defines the axioms _correctness_ and _existential unforgeability under chosen message attacks_. *)
+
+(** Subterms of list of terms. *)
 
 Section subtrm.
 Variable f: message -> list message.
@@ -11,7 +19,8 @@ match l with
 | cons h t => (app (f h) (subtrmls t))
 end.
 End subtrm.
-(***subterms of message or Bool term****)
+
+(** subterms of [message], or [Bool] terms. *)
 
 Fixpoint subtrmls_bol  (t: Bool) : list message :=
  match t with 
@@ -56,7 +65,7 @@ with subtrmls_msg (t:message) : list message :=
  end.
 Eval compute in (subtrmls_msg (sign (if_then_else_M TRue (dec O (sk (N 1))) O) new)).
 
-(*subterms of oursum term*)
+(** Subterms of [oursum] term. *)
 
 Definition subtrmls_os (t:oursum) : list message :=
 match t with 
@@ -64,7 +73,7 @@ match t with
 | bol b1 =>  subtrmls_bol b1
 end.
 
-(*subterms of mylist of terms*)
+(** Subterms of terms of type [mylist n] for some [n].*)
 
 Fixpoint subtrmls_mylist {n} (l:mylist n) : list message :=
 match l with 
@@ -72,9 +81,9 @@ match l with
 | h:: t => (app (subtrmls_os h) (subtrmls_mylist t))
 end.
 
+(** Check if [(N n)] occurs only under either [sk] or [pk] . *)
 
-(*to check if (N n) occurs only under either sk or pk *)
-
+(** [message] or [Bool]. *)
 Fixpoint onlyin_pkrsk_bol (n : nat )(t:Bool) : bool :=
  match t with 
 | Bvar n' => if (beq_nat n' n) then false else true
@@ -124,16 +133,14 @@ with onlyin_pkrsk_msg (n : nat )(t:message) : bool :=
 end.
 Eval compute in (onlyin_pkrsk_msg 1  (f [ (k (N 1))])).
 
-(*******oursum*********)
-
+(** [oursum] *)
 Definition onlyin_pkrsk_os (n : nat )(t:oursum) : bool :=
 match t with
 | msg t1 => (onlyin_pkrsk_msg n t1)
 | bol b => (onlyin_pkrsk_bol n b)
 end.
 
-
-(**********mylist*************)
+(** [mylist m] for some m *)
 
 Fixpoint onlyin_pkrsk_mylist (n : nat ){m}(t: mylist m) : bool :=
 match t with
@@ -141,9 +148,7 @@ match t with
 | h:: tl=> (andb (onlyin_pkrsk_os n h) (onlyin_pkrsk_mylist n tl))
 end.
 
-
-
-(*Check if sk(N n) occurs as (sign (sk (K n)) _)*******)
+(** Check if sk(N n) occurs as [(sign (sk (K n)) _)]. *)
 
 Fixpoint skn_in_sign_bol (n : nat )(t:Bool) : bool :=
  match t with 
@@ -192,25 +197,25 @@ with skn_in_sign_msg (n : nat )(t:message) : bool :=
 
 end.
 
-(*******oursum*************)
+(** [oursum]  *)
+
 Definition  skn_in_sign_os (n : nat )(t:oursum) : bool :=
 match t with
 | msg t1 => (skn_in_sign_msg n t1)
 | bol b => (skn_in_sign_bol n b)
 end.
-(**********mylist********)
+
+(** [mylist m] *)
+
 Fixpoint  skn_in_sign_mylist (n : nat ){m}(t: mylist m) : bool :=
 match t with
 | []  => true
 | h:: tl=> (andb (skn_in_sign_os n h)  (skn_in_sign_mylist  n tl)) 
 end.
-
 Eval compute in (sk (N 2)).
-
 Eval compute in skn_in_sign_msg 1 (sign (sk (N 2)) O).
 
-
-(*********list of subterms of the form sign ( sk(N n), t1),.....,sign ( sk(N n), tl)**********)
+(** List of subterms of the form [sign ( sk(N n), t1),.....,sign ( sk(N n), tl)]. *)
 
 Fixpoint list_skn_in_sign (n:nat) (l:list message) : list message :=
 match l with 
@@ -223,13 +228,13 @@ match l with
 end.
 Eval compute in ( list_skn_in_sign 1 (subtrmls_msg (sign (if_then_else_M TRue (dec O (sk (N 1))) O) new))).
 
-(**Axioms **)
+(** * Axioms *)
 
-(*signature verification*)
+(** Correctness *)
 Axiom correctness :  forall (n:nat) (t :message), (ver (pk (N n))  t (sign (sk (N n)) t)) ## TRue.
 
+(** Existential unforgeability under adaptively chosen message attacks (UF-CMA secure) *)
 
-(**Existential unforgeability under adaptively chosen message attacks (UF-CMA secure)**)
 Fixpoint b  (j:nat) (k:nat) {n: nat} (ml: ilist message (n)) (t u :message) : Bool :=
  match j, ml with
    |  0 , _  => FAlse

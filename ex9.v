@@ -1,9 +1,17 @@
-(*Authors: Ajay Kumar Eeralla, Rohit Chadha, University of Missouri-Columbia*)
-  
+(************************************************************************)
+(* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
+(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                                                                      *)
+(* Licensed under the MIT license, see the LICENSE file or              *)
+(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(************************************************************************)
 Load "andbprops".
- 
-(****if b then t1[if b then x1 else y1 ] else t2[if b then x2 else y2] = if b then t1[x1] else t2[y2]*************************************************)
-(***Bool in Bool****)
+
+(** This library defines a theorem and its proof. Notice that we use [#] (resp. [##]) for [message] (resp. [Bool]) in lieu of [=] .
+
+[ if b then t1[[if b then x1 else y1]] else t2[[if b then x2 else y2]] = if b then t1[[x1]] else t2[[y2]] ] *)
+
+(*Bool in Bool*)
 
 Ltac Fr_pf1 := 
 repeat match goal with 
@@ -14,7 +22,6 @@ repeat match goal with
 Theorem Ex9bol_bol: forall (b1 b2: Bool )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_blist n [b1 ; b2]  = true) 
                      ->  (if_then_else_B (Bvar n) ([n5:= (if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))] b1) ([n6:=  (if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))] b2))
                       ##  ( if_then_else_B (Bvar n) ([n5:= (Bvar n1)] b1)                                     ([n6:= (Bvar n4)] b2) ) .
-
 Proof.
 intros.
 inversion H.
