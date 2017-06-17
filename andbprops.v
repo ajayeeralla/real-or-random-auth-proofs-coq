@@ -6,7 +6,7 @@
 (* http://en.wikipedia.org/wiki/Mit_license                             *)
 (************************************************************************)
 
-Load "IFMORPH".
+Load "ex5_4_IFMORPH".
 (** * [andB] properties *)
 
 (** This library defines some of the properties of [andB]. *)

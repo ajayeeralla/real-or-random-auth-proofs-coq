@@ -5,7 +5,7 @@
 (* Licensed under the MIT license, see the LICENSE file or              *)
 (* http://en.wikipedia.org/wiki/Mit_license                             *)
 (************************************************************************)
-Load "ex20".
+Load "ex7_12".
 (** This library defines auxiliary theorems which will be used in the proofs of real-or-random secrecy of Diffie-Hellman (DH) protocol and authentication of (STS) protocol . *)
 
 Theorem mor_eval_andB : forall (n1 : nat) (t1 t2:message), (if_then_else_M (Bvar n1)& (Bvar (n1+1)) t1 t2) #

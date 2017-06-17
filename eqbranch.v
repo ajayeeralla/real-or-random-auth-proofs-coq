@@ -5,11 +5,12 @@
 (* Licensed under the MIT license, see the LICENSE file or              *)
 (* http://en.wikipedia.org/wiki/Mit_license                             *)
 (************************************************************************)
-Load "ex12".
+Load "ex7_4".
 
 (** This library defines the theorem [EQBRANCH] that states,
 
 [if EQ(x1 , x2) then t[[x1]] else t' = if EQ(x1 ,x2) then t[[x2]] else t'. *)
+(** It is a corollary of ex7.4 *)
 
 Theorem EQ_BRbol_bol :forall ( b1 b2: Bool) (n1 n2 n3 :nat ), (if_then_else_B (EQ_B  (Bvar n1)  (Bvar n2)) [n3 := (Bvar n1)]b1 b2) ## ( if_then_else_B (EQ_B  (Bvar n1)(Bvar n2)) [n3:= (Bvar n2)] b1 b2).
 Proof.
