@@ -14,13 +14,13 @@ To download and install Coq on your machine, follow the link [install coq](https
 
 ### Compile the proofs
 
-The directory machine-checked-proofs already has **Makefile** in it.
+* The directory machine-checked-proofs already has **Makefile** in it.
 
-In order to compile all the files, use the command **make**.
+* In order to compile all the files, use the command **make**.
 
-To compile a single file _file.v_, you could use **coqc** command. For example, coqc _file.v_.
+* To compile a single file _file.v_, you could use **coqc** command. For example, coqc _file.v_.
 
-To generate a new Makefile by typing
+* To generate a new Makefile by typing
 
   **coq_makefile -install none -I . *.v -o Makefile**
 
