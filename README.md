@@ -17,7 +17,7 @@ Licensed under the MIT license, see the LICENSE file or http://en.wikipedia.org/
 * The directory machine-checked-proofs already has **Makefile** in it.
 
 * In order to compile all the files, use the command **make**.
-  * It took about **one and a half hours** to compile all the files on the system with **Ubuntu 14.10 and 8GiB memory**.
+  * It took about **one and a half hours** to compile all the files on the system with specifications **Ubuntu 14.04 LTS**, **Intel Core i5 3.20 GHz**, and  **8GiB RAM**
 
 * To compile a single file _file.v_, you could use **coqc** command. For example, coqc _file.v_.
 
