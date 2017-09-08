@@ -80,7 +80,7 @@ match l with
 | [] => nil
 | h:: t => (app (subtrmls_os h) (subtrmls_mylist t))
 end.
-
+(*
 (** Check if [(N n)] occurs only under either [sk] or [pk] . *)
 
 (** [message] or [Bool]. *)
@@ -243,3 +243,106 @@ Fixpoint b  (j:nat) (k:nat) {n: nat} (ml: ilist message (n)) (t u :message) : Bo
   end.    
  
 Axiom UFCMA : forall (n l :nat)(ml: ilist message l) (t u: message), (clos_mylist [ msg t; msg u] = true) /\ (onlyin_pkrsk_mylist n [msg t; msg u] = true) /\ (skn_in_sign_mylist n [msg t; msg u] = true) /\ (l = length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))))   ->  (ver (pk n) t u) ## (b l n ml t u).
+ *)
+
+
+Fixpoint insec_n_bol (n : nat )(t:Bool) : bool :=
+  match t with 
+    | eqb  b1 b2 =>  (orb (insec_n_bol n b1)  (insec_n_bol n b2))
+    | eqm t1 t2 =>   orb (insec_n_msg n t1) ( insec_n_msg n t2)
+    | ifb t1 t2 t3 =>  (orb (insec_n_bol n t1) (orb (insec_n_bol n t2) ( insec_n_bol n t3)))
+    | EQL t1 t2 =>  (orb (insec_n_msg n t1) ( insec_n_msg n t2))
+    | ver t1 t2 t3 => (orb (insec_n_msg n t1) (orb (insec_n_msg n t2) ( insec_n_msg n t3)))
+    | _  => false
+ end
+with insec_n_msg (n : nat )(t:message) : bool :=
+       match t with
+         | N n' => (beq_nat n' n)
+         | Mvar n' => false
+         | ifm b t1 t2 => (orb (insec_n_bol n b) (orb (insec_n_msg n t1) ( insec_n_msg n t2)))
+         | exp t1 t2 t3 =>  (orb (insec_n_msg n t1) (orb (insec_n_msg n t2) ( insec_n_msg n t3)))
+         | pair t1 t2 =>  orb (insec_n_msg n t1) ( insec_n_msg n t2)
+         | pi2 t1 => (message_beq (sk n) t)
+         | pi1 t1 => match t1 with
+                       | k (N _ ) => false
+                       | _ => (insec_n_msg n t1)
+                     end
+                                        
+         | ggen t1 =>  (insec_n_msg n t1)
+         | act t1 =>  (insec_n_msg n t1)
+         | rr t1 =>  (insec_n_msg n t1)
+         | rs t1 =>  (insec_n_msg n t1)
+         | L t1 =>  (insec_n_msg n t1)
+         | m t1 =>  (insec_n_msg n t1)
+         | enc t1 t2 t3 =>  (orb (insec_n_msg n t1) (orb (insec_n_msg n t2) ( insec_n_msg n t3)))
+         | dec t1 t2 => orb (insec_n_msg n t1) ( insec_n_msg n t2)
+         | k t1 =>  (insec_n_msg n t1) 
+         | nc t1 => (insec_n_msg n t1) 
+         | to t1 => (insec_n_msg n t1) 
+         | reveal t1 => (insec_n_msg n t1) 
+         | sign t1 t2 => match t1 with
+                           | pi2 (k (N _)) => false
+                           | _ => (orb (insec_n_msg n t1) (insec_n_msg n t2))
+                         end
+         | f  l => (@existsb message (insec_n_msg n) l)
+         | _ => false
+       end.
+
+Eval compute in insec_n_msg 1   (pk 1). 
+(** [oursum]  *)
+
+Definition  insec_n_os (n : nat )(t:oursum) : bool :=
+  match t with
+    | msg t1 => (insec_n_msg n t1)
+    | bol b => (insec_n_bol n b)
+  end.
+
+(** [mylist m] *)
+
+Fixpoint  insec_n_mylis (n : nat ){m}(t: mylist m) : bool :=
+  match t with
+    | []  => false
+    | h:: t => (orb (insec_n_os n h)  (insec_n_mylis  n t)) 
+  end.
+Eval compute in (sk 2).
+Eval compute in insec_n_msg 1 (sign (sk 1) O).
+
+(** List of subterms of the form [sign ( sk(N n), t1),.....,sign ( sk(N n), tl)]. *)
+
+Fixpoint list_skn_in_sign (n:nat) (l:list message) : list message :=
+  match l with 
+    | nil => nil
+    | cons h t => (app (match h with 
+                          | sign (pi2 (k (N n'))) _ => if (beq_nat n' n) then (cons h nil) else nil
+                          | _ => nil
+                        end) 
+                       (list_skn_in_sign n t))
+  end.
+Eval compute in (subtrmls_msg (sign (ifm TRue (dec O (sk 1)) O) new)).
+
+Section ds_axioms.
+
+(** * Digital Signatures*)
+(** ** Assumptions *)
+
+
+
+(** Correctness *)
+
+  Axiom correctness :  forall (n:nat) (t :message), (ver (pk n)  t (sign (sk n) t)) ## TRue.
+  
+(** Existential unforgeability under adaptively chosen message attacks (UF-CMA secure) *)
+
+  Fixpoint unforgb  (j:nat) (n:nat)  (ml: list message) (t u :message) : Bool :=
+    match j, ml with
+      |  0 , _ => FAlse
+      |  S _, nil  => FAlse             
+      | S j', cons h tl => ifb  (eqm t h) (ver (pk n) h u) (unforgb j' n tl t u)         
+    end.    
+ 
+  Axiom UFCMA : forall (n :nat)(t u: message), (clos_mylist [ msg t; msg u] = true) /\ (insec_n_mylis n [msg t; msg u] = false) ->
+                                               let j := length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))) in
+                                               let ml := list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u)) in
+                                               (ver (pk n) t u) ## (unforgb j n ml t u).
+ 
+End ds_axioms.

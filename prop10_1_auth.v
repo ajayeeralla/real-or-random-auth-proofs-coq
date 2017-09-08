@@ -108,11 +108,8 @@ assert(trm3: (ifm (eqm (to x1) (i 1)) & (eqm (act x1) new)
                   (notb (eqm (pi1 x2) (grn 1)) & (eqm x1 (grn 1))) new O) O) O))).
 
 assert(vef: (ver (pk 3) (pair x1 (grn 1)) x2) ## FAlse).
-pose proof(UFCMA 3 0 []  (pair x1 (grn 1)) x2).
-simpl in H.
-assert(H1: true = true /\ true = true  /\ true = true /\ 0 = 0).
-repeat split. apply H in H1.
-apply H1.
+apply (UFCMA 3 (pair x1 (grn 1)) x2);try split; try reflexivity. 
+
 rewrite vef.
 assert(pf:  (((eqm (to x2) (i 2)) & (FAlse)) & (eqm (pi1 x2) (grn 1))) &
             (eqm x1 (grn 1)) ## FAlse).
