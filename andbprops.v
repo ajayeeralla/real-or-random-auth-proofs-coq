@@ -82,14 +82,10 @@ rewrite IFSAME_B.
 rewrite IFFALSE_B.
 reflexivity.
 Qed.
-
+ 
 Axiom andB_assoc: forall (b1 b2 b3: Bool), (b1 & b2) & b3 ## b1 & (b2 & b3).
-Lemma andB_prop : forall a b:Bool, (andB a b) ## TRue -> (a ## TRue) /\ (b ## TRue).
-Proof. 
-intros.
-unfold andB in H.
-pose proof(IFSAME_B b (if_then_else_B a b FAlse)).
-Admitted.
+Axiom andB_prop : forall a b:Bool, (andB a b) ## TRue -> (a ## TRue) /\ (b ## TRue).
+
 Lemma andB_TRue_intro : forall b1 b2:Bool, b1 ## TRue /\ b2 ## TRue -> (andB b1 b2) ## TRue.
 Proof. intros.
 inversion H.
@@ -162,12 +158,12 @@ rewrite IFSAME_B.
 reflexivity. Qed.
 
 Theorem b1_notb2 : forall (n1 : nat) , (Bvar n1) &(notb (Bvar (n1+1))) ##
-(if_then_else_B (Bvar (n1+1)) FAlse (Bvar n1)) .
+(ifb (Bvar (n1+1)) FAlse (Bvar n1)) .
 
 Proof.
  intros.
 unfold notb, andB.
-rewrite <- IFSAME_B with (b:= (Bvar (n1+1))) (b1:= (if_then_else_B (Bvar n1) (if_then_else_B (Bvar (n1 + 1)) FAlse TRue) FAlse)).
+rewrite <- IFSAME_B with (b:= (Bvar (n1+1))) (b1:= (ifb (Bvar n1) (ifb (Bvar (n1 + 1)) FAlse TRue) FAlse)).
 rewrite IFEVAL_B with (n := (n1+1)).
  simpl.
 rewrite <- beq_nat_refl.
@@ -185,5 +181,6 @@ rewrite H.
 rewrite IFTF.
 reflexivity.
 Qed.
+
 
 

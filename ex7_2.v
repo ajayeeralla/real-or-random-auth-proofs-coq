@@ -17,21 +17,21 @@ unfold const in H.
 unfold const.
 apply FUNCApp_const with (a := [msg F])(ml1 := ([msg x]))(ml2 := [msg F]) in H.
 unfold const in H.
-unfold app_mylist in H.
-apply FUNCApp_EQ_M with (p1 := 1) (p2:=2) in H.  
+unfold app_mylist in H. 
+apply FUNCApp_eqm with (p1 := 1) (p2:=2) in H.  
 simpl in H.
-unfold EQ_M_at_pos in H.
+unfold eqm_at_pos in H.
 unfold chkmsg_os in H. unfold getelt_at_pos in H. 
 simpl in H. 
 unfold app_mylist in H.
 restr_proj_in 1 H.
 restr_proj_in 1 H.
-assert (J:[bol (EQ_M F F) ] ~[bol TRue]) .
+assert (J:[bol (eqm F F) ] ~[bol TRue]) .
 assert(K: (EQI_msg F F)).
 reflexivity.
 apply K.
-assert (K:[bol (EQ_M x F)] ~[bol TRue]) .
-apply EQI_trans with (ml2 := [bol (EQ_M F F)]).
+assert (K:[bol (eqm x F)] ~[bol TRue]) .
+apply EQI_trans with (ml2 := [bol (eqm F F)]).
 assumption. assumption. assumption.
 Qed.
 
@@ -46,19 +46,19 @@ unfold const.
 apply FUNCApp_const with (a := [bol F])(ml1 := ([bol x]))(ml2 := [bol F]) in H.
 unfold const in H.
 simpl in H.
-pose proof (FUNCApp_EQ_B).
-apply FUNCApp_EQ_B with ( p1:=1)(p2:=2) in H.
+pose proof (FUNCApp_eqb).
+apply FUNCApp_eqb with ( p1:=1)(p2:=2) in H.
 unfold app_mylist in H.
-unfold EQ_B_at_pos in H.
+unfold eqb_at_pos in H.
 simpl in H.
 restr_proj_in 1 H.
 restr_proj_in 1 H.
-assert (J:[bol (EQ_B F F) ] ~[bol TRue]) .
+assert (J:[bol (eqb F F) ] ~[bol TRue]) .
 assert(K: (EQI_bol F F)).
 reflexivity.
 apply K.
-assert (K:[bol (EQ_B x F)] ~[bol TRue]) .
-apply EQI_trans with (ml2 := [bol (EQ_B F F)]).
+assert (K:[bol (eqb x F)] ~[bol TRue]) .
+apply EQI_trans with (ml2 := [bol (eqb F F)]).
 apply H.
 apply J.
 apply K.

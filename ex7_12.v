@@ -8,10 +8,10 @@
 Load "ex7_11".
 (** This library presents a theorem that states,
 
-[ Fresh(G,g,a,b,c,d) /\ (clos_bol b) -> [[ G;g;g^a;g^b;g^c; if_then_else_B b (g^ab) (g^bc)]] ~ [[G;g;g^a;g^b;g^c;g^d]] ]. *)
+[ Fresh(G,g,a,b,c,d) /\ (clos_bol b) -> [[ G;g;g^a;g^b;g^c; ifb b (g^ab) (g^bc)]] ~ [[G;g;g^a;g^b;g^c;g^d]] ]. *)
 
 Variable fmb4 : message -> message -> message -> message ->  Bool.
-Theorem Example20: forall (n n1 n2 n3 n4: nat), (Fresh [ n ; n1 ; n2 ; n3 ; n4] []  = true ) -> (clos_bol (fmb4  (g n)  (exp (G n) (g n) (r n1)) (exp (G n) (g n) (r n2)) (exp (G n) (g n) (r n3))) = true) -> [ msg (G n) ; msg (g n); msg (exp (G n) (g n) (r n1)); msg (exp (G n) (g n) (r n2)); msg (exp (G n) (g n) (r n3)); msg (if_then_else_M (fmb4  (g n) (exp (G n) (g n) (r n1)) (exp (G n) (g n) (r n2)) (exp (G n) (g n) (r n3))) (exp (G n) (exp (G n) (g n) (r n1)) (r n2))  (exp (G n) (exp (G n) (g n) (r n2)) (r n3)))] ~   [ msg (G n) ; msg (g n); msg (exp (G n) (g n) (r n1)); msg (exp (G n) (g n) (r n2)); msg (exp (G n) (g n) (r n3)); msg (exp (G n) (g n) (r n4))].
+Theorem Example20: forall (n n1 n2 n3 n4: nat), (Fresh [ n ; n1 ; n2 ; n3 ; n4] []  = true ) -> (clos_bol (fmb4  (g n)  (exp (G n) (g n) (r n1)) (exp (G n) (g n) (r n2)) (exp (G n) (g n) (r n3))) = true) -> [ msg (G n) ; msg (g n); msg (exp (G n) (g n) (r n1)); msg (exp (G n) (g n) (r n2)); msg (exp (G n) (g n) (r n3)); msg (ifm (fmb4  (g n) (exp (G n) (g n) (r n1)) (exp (G n) (g n) (r n2)) (exp (G n) (g n) (r n3))) (exp (G n) (exp (G n) (g n) (r n1)) (r n2))  (exp (G n) (exp (G n) (g n) (r n2)) (r n3)))] ~   [ msg (G n) ; msg (g n); msg (exp (G n) (g n) (r n1)); msg (exp (G n) (g n) (r n2)); msg (exp (G n) (g n) (r n3)); msg (exp (G n) (g n) (r n4))].
 
 Proof. intros. 
 assert(H2 : Fresh[n;n1;n2;n4] [] = true).
@@ -180,7 +180,7 @@ simpl in H4.
 
 restr_swap_in 6 7 H4.
 
-apply FUNCApp_att4 with (p1:=3) (p2:=4) (p3:=5) (p4:= 6) (fmb4 := fmb4) in H4.
+apply @FUNCApp_att4 with (p1:=3) (p2:=4) (p3:=5) (p4:= 6) (f:=fmb4) in H4.
 unfold getelt_at_pos in H4. simpl in H4. 
 restr_swap_in 7 8 H4.
 
@@ -343,7 +343,7 @@ simpl in H6.
 restr_swap_in 6 7 H6.
 restr_swap_in 5 6 H6.
 restr_swap_in 4 5 H6.
-apply FUNCApp_att4 with (p1:=3) (p2:=4) (p3:=5) (p4:= 6) (fmb4:= fmb4) in H6.
+apply @FUNCApp_att4 with (p1:=3) (p2:=4) (p3:=5) (p4:= 6) (f:= fmb4) in H6.
 unfold getelt_at_pos in H6. simpl in H6.
 restr_swap_in 7 8 H6.
 pose proof(IFBRANCH_M).
@@ -353,7 +353,7 @@ assert (ifbr: ([msg (G n); msg (g n); msg (exp (G n) (g n) (r n1));
        (fmb4 (g n) (exp (G n) (g n) (r n1))
           (exp (G n) (g n) (r n2))
           (exp (G n) (g n) (r n3))); msg
-   (if_then_else_M (fmb4 (g n) (exp (G n) (g n) (r n1))
+   (ifm (fmb4 (g n) (exp (G n) (g n) (r n1))
          (exp (G n) (g n) (r n2))
          (exp (G n) (g n) (r n3)))
       (exp (G n) (exp (G n) (g n) (r n1)) (r n2))
@@ -363,7 +363,7 @@ msg (exp (G n) (g n) (r n2));
 msg (exp (G n) (g n) (r n3))] ++
 [bol (fmb4 (g n) (exp (G n) (g n) (r n1))
           (exp (G n) (g n) (r n2))
-          (exp (G n) (g n) (r n3))); msg (if_then_else_M (fmb4 (g n) (exp (G n) (g n) (r n1))
+          (exp (G n) (g n) (r n3))); msg (ifm (fmb4 (g n) (exp (G n) (g n) (r n1))
          (exp (G n) (g n) (r n2))
          (exp (G n) (g n) (r n3)))
        (exp (G n) (g n) (r n4))

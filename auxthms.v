@@ -8,12 +8,12 @@
 Load "ex7_12".
 (** This library defines auxiliary theorems which will be used in the proofs of real-or-random secrecy of Diffie-Hellman (DH) protocol and authentication of (STS) protocol . *)
 
-Theorem mor_eval_andB : forall (n1 : nat) (t1 t2:message), (if_then_else_M (Bvar n1)& (Bvar (n1+1)) t1 t2) #
-(if_then_else_M (Bvar n1) (if_then_else_M (Bvar (n1+1)) ((n1+1):=TRue)((n1:=TRue)t1) ((n1+1):=FAlse)((n1:=TRue)t2)) (((n1:=FAlse)t2))).
+Theorem mor_eval_andB : forall (n1 : nat) (t1 t2:message), (ifm (Bvar n1)& (Bvar (n1+1)) t1 t2) #
+(ifm (Bvar n1) (ifm (Bvar (n1+1)) ((n1+1):=TRue)((n1:=TRue)t1) ((n1+1):=FAlse)((n1:=TRue)t2)) (((n1:=FAlse)t2))).
 
 Proof. intros.
 unfold andB.
-rewrite <- IFSAME_M with (b:= (Bvar n1)) (x:=  (if_then_else_M (if_then_else_B (Bvar n1) (Bvar (n1+1)) FAlse) t1 t2)) .
+rewrite <- IFSAME_M with (b:= (Bvar n1)) (x:=  (ifm (ifb (Bvar n1) (Bvar (n1+1)) FAlse) t1 t2)) .
 rewrite IFEVAL_M .
 simpl.
 rewrite <- beq_nat_refl.
@@ -31,15 +31,15 @@ reflexivity.
 Qed.
 
 (*corollary**)
-Axiom mor_eval_andB' : forall (b1 b2 : Bool) (t1 t2 : message) , (if_then_else_M b1 & b2 t1 t2 ) # (if_then_else_M b1 (if_then_else_M b2 (subbol_msg' b2 TRue (subbol_msg' b1 TRue t1))  (subbol_msg' b2 FAlse (subbol_msg' b1 TRue t2))) (subbol_msg' b1 FAlse t2)).
+Axiom mor_eval_andB' : forall (b1 b2 : Bool) (t1 t2 : message) , (ifm b1 & b2 t1 t2 ) # (ifm b1 (ifm b2 (subbol_msg' b2 TRue (subbol_msg' b1 TRue t1))  (subbol_msg' b2 FAlse (subbol_msg' b1 TRue t2))) (subbol_msg' b1 FAlse t2)).
 
-Theorem breq_msgeq: forall (n:nat) (m1 m2 m3 m4 :message) , ((n:= TRue)m1)# ((n:= TRue)m3) -> ((n:= FAlse)m2)# ((n:= FAlse)m4) -> (if_then_else_M (Bvar n) m1 m2) # (if_then_else_M (Bvar n) m3 m4).
+Theorem breq_msgeq: forall (n:nat) (m1 m2 m3 m4 :message) , ((n:= TRue)m1)# ((n:= TRue)m3) -> ((n:= FAlse)m2)# ((n:= FAlse)m4) -> (ifm (Bvar n) m1 m2) # (ifm (Bvar n) m3 m4).
 Proof. intros.
 rewrite IFEVAL_M. rewrite H. rewrite H0. rewrite IFEVAL_M with (t1:= m3) (t2:= m4).
 reflexivity. Qed.
 
 (*Corollary*)
-Theorem breq_msgeq': forall (  b :Bool) (m1  m2 m3 m4 :message) ,  (subbol_msg' b TRue m1) # (subbol_msg' b TRue m2) -> (subbol_msg' b FAlse m3) # (subbol_msg' b FAlse m4) -> (if_then_else_M b m1 m3) # (if_then_else_M b m2 m4).
+Theorem breq_msgeq': forall (  b :Bool) (m1  m2 m3 m4 :message) ,  (subbol_msg' b TRue m1) # (subbol_msg' b TRue m2) -> (subbol_msg' b FAlse m3) # (subbol_msg' b FAlse m4) -> (ifm b m1 m3) # (ifm b m2 m4).
 
 Proof. intros.
 rewrite IFEVAL_M'.
@@ -48,7 +48,7 @@ rewrite H, H0.
 reflexivity.
 Qed.
 (*using (Bvar n)*)
-Theorem breq_msgeq'': forall (n:nat) (m1  m2 m3 m4 :message) ,  (subbol_msg n TRue m1) # (subbol_msg n TRue m2) -> (subbol_msg n FAlse m3) # (subbol_msg n FAlse m4) -> (if_then_else_M (Bvar n) m1 m3) # (if_then_else_M (Bvar n) m2 m4).
+Theorem breq_msgeq'': forall (n:nat) (m1  m2 m3 m4 :message) ,  (subbol_msg n TRue m1) # (subbol_msg n TRue m2) -> (subbol_msg n FAlse m3) # (subbol_msg n FAlse m4) -> (ifm (Bvar n) m1 m3) # (ifm (Bvar n) m2 m4).
 
 Proof. intros.
 rewrite IFEVAL_M.
@@ -57,12 +57,12 @@ rewrite H, H0.
 reflexivity.
 Qed.
 
-Axiom breq_msgeq''': forall (n:nat) (b:Bool) (m1  m2 m3 m4 :message) ,  (if_then_else_M (Bvar n) m1 m3) # (if_then_else_M (Bvar n) m2 m4) ->   (if_then_else_M b m1 m3) # (if_then_else_M b m2 m4).
+Axiom breq_msgeq''': forall (n:nat) (b:Bool) (m1  m2 m3 m4 :message) ,  (ifm (Bvar n) m1 m3) # (ifm (Bvar n) m2 m4) ->   (ifm b m1 m3) # (ifm b m2 m4).
 
 (* then branches are equal*)
-Axiom breq_msgeq1: forall (n:nat) ( m2 m3 m4 :message) ,  ((n:= FAlse)m2)# ((n:= FAlse)m4) -> (if_then_else_M (Bvar 1) m3 m2) # (if_then_else_M (Bvar n) m3 m4).
+Axiom breq_msgeq1: forall (n:nat) ( m2 m3 m4 :message) ,  ((n:= FAlse)m2)# ((n:= FAlse)m4) -> (ifm (Bvar n) m3 m2) # (ifm (Bvar n) m3 m4).
 
- Theorem breq_msgeq1': forall (  b :Bool) ( m2 m3 m4 :message) ,  (subbol_msg' b FAlse m2) # (subbol_msg' b FAlse m4) -> (if_then_else_M b m3 m2) # (if_then_else_M b m3 m4).
+ Theorem breq_msgeq1': forall (  b :Bool) ( m2 m3 m4 :message) ,  (subbol_msg' b FAlse m2) # (subbol_msg' b FAlse m4) -> (ifm b m3 m2) # (ifm b m3 m4).
 
 Proof. intros . rewrite IFEVAL_M'.
 rewrite IFEVAL_M' with (t2:= m4).
@@ -70,9 +70,9 @@ rewrite H.
 reflexivity.
 Qed.
 
-Theorem  andB_elm : forall (n1 n2 : nat) (x y: message), (if_then_else_M (Bvar n1) &  (Bvar n2) x y) # (if_then_else_M (Bvar n1) (if_then_else_M (Bvar n2) x y) y).
+Theorem  andB_elm : forall (n1 n2 : nat) (x y: message), (ifm (Bvar n1) &  (Bvar n2) x y) # (ifm (Bvar n1) (ifm (Bvar n2) x y) y).
 Proof. intros.
-rewrite <- IFSAME_M with (b:= (Bvar n1)) (x:= (if_then_else_M (Bvar n1) & (Bvar n2) x y)) at 1. 
+rewrite <- IFSAME_M with (b:= (Bvar n1)) (x:= (ifm (Bvar n1) & (Bvar n2) x y)) at 1. 
 rewrite IFEVAL_M with (n:= n1). simpl. 
 rewrite <- beq_nat_refl.
 Eval compute in subbol_msg' (Bvar n1) TRue x.
@@ -84,22 +84,22 @@ reflexivity .
 Qed.
 
 (** Eliminating [andB] in a term *)
-Axiom andB_elm': forall (b1 b2: Bool) (x y : message), (if_then_else_M b1& b2 x y) #  (if_then_else_M b1 (if_then_else_M b2 x y ) y).
+Axiom andB_elm': forall (b1 b2: Bool) (x y : message), (ifm b1& b2 x y) #  (ifm b1 (ifm b2 x y ) y).
 
 Theorem  breq_msgeq_andB : forall (n1 n2:nat) (m1 m2 m1' m2' :message), ( (n1 := TRue) (n2 := TRue) m1) #  ((n1 := TRue) (n2 := TRue) m1') ->  ( (n1 := TRue) (n2 := FAlse) m2) #
- ( (n1 := TRue) (n2 := FAlse) m2') -> ((n1 := FAlse) m2) #  ((n1 := FAlse) m2') -> (if_then_else_M (Bvar n1) (if_then_else_M (Bvar n2) m1 m2) m2) #  (if_then_else_M (Bvar n1) (if_then_else_M (Bvar n2) m1' m2') m2').
+ ( (n1 := TRue) (n2 := FAlse) m2') -> ((n1 := FAlse) m2) #  ((n1 := FAlse) m2') -> (ifm (Bvar n1) (ifm (Bvar n2) m1 m2) m2) #  (ifm (Bvar n1) (ifm (Bvar n2) m1' m2') m2').
  Proof. intros.  rewrite IFEVAL_M with (t1:= m1) (t2:= m2). rewrite IFEVAL_M with (t2:= m2).
 simpl. rewrite IFEVAL_M with (t1:= m1') (t2:= m2'). rewrite IFEVAL_M with (t2:= m2').
 simpl. rewrite H; rewrite H0 ; rewrite H1. reflexivity. Qed.
 
 Axiom sub_invar: forall (t:message)  (b:Bool), (subbol_msg' b b t) # t. 
 Axiom sub_in_sub: forall (b1 b2 b3 b4:Bool) (t:message), (**(occbol_in_msg b1 t = false) ->**) (subbol_msg' b1 b2 (subbol_msg' b3 b4 t)) # (subbol_msg' b3 (subbol_bol' b1 b2 b4) t).
-Axiom dist_sesns_neq: forall (n1 n2:nat), (beq_nat n1 n2) =false  ->  (EQ_M (i n1) (i n2)) ##  FAlse.
+Axiom dist_sesns_neq: forall (n1 n2:nat), (beq_nat n1 n2) =false  ->  (eqm (i n1) (i n2)) ##  FAlse.
 
-Theorem dist_sesns_false: forall (n1 n2:nat),  (beq_nat n1 n2 = false) ->  (EQ_M (Mvar 1) (i n1)) & (EQ_M (Mvar 1) (i n2)) ## FAlse. 
+Theorem dist_sesns_false: forall (n1 n2:nat),  (beq_nat n1 n2 = false) ->  (eqm (Mvar 1) (i n1)) & (eqm (Mvar 1) (i n2)) ## FAlse. 
 Proof.  intros. 
 unfold andB.
-pose proof( EQ_BRmsg_msg''  (Mvar 1) (Mvar 1)  (i n1)    (EQ_M (Mvar 1) (i n2))  FAlse).
+pose proof( eqbrmsg_msg''  (Mvar 1) (Mvar 1)  (i n1)    (eqm (Mvar 1) (i n2))  FAlse).
 simpl in H0.
 rewrite H0. 
 apply dist_sesns_neq in H.
@@ -108,35 +108,35 @@ rewrite IFSAME_B.
  reflexivity. 
 Qed.
 
-Theorem dist_sesns_false' : forall (n1 n2:nat) (x:message) , (beq_nat n1 n2 = false) ->  (EQ_M x (i n1)) & (EQ_M x (i n2)) ## FAlse .
+Theorem dist_sesns_false' : forall (n1 n2:nat) (x:message) , (beq_nat n1 n2 = false) ->  (eqm x (i n1)) & (eqm x (i n2)) ## FAlse .
 Proof . 
 intros. 
 apply dist_sesns_false in H.
 apply Forall_ELM_EVAL_B1 with (n:= 1) (b:= x) in H. simpl in H. assumption. Qed.
 
-Theorem IFEVAL_M'': forall (n1 n2: nat) ( t1 t2:message), (beq_nat n1 n2 = false) -> (if_then_else_M  (EQ_M (Mvar 1) (i n1)) t1 t2) # (if_then_else_M  (EQ_M (Mvar 1) (i n1)) (subbol_msg' (EQ_M (Mvar 1) (i n2)) FAlse t1) t2).
+Theorem IFEVAL_M'': forall (n1 n2: nat) ( t1 t2:message), (beq_nat n1 n2 = false) -> (ifm  (eqm (Mvar 1) (i n1)) t1 t2) # (ifm  (eqm (Mvar 1) (i n1)) (subbol_msg' (eqm (Mvar 1) (i n2)) FAlse t1) t2).
 Proof. 
 intros.
 apply dist_sesns_false in H.  
-assert( (if_then_else_M (EQ_M (Mvar 1) (i n1)) t1 t2) #  (if_then_else_M (EQ_M (Mvar 1) (i n1)) (subbol_msg' (EQ_M (Mvar 1) (i n2)) (EQ_M (Mvar 1) (i n2)) t1) t2)).
-rewrite sub_invar with(b:= (EQ_M (Mvar 1) (i n2))) (t:= t1). reflexivity.
-assert( (EQ_M (Mvar 1) (i n2))  ##  (EQ_M (Mvar 1) (i n2)) & TRue).
+assert( (ifm (eqm (Mvar 1) (i n1)) t1 t2) #  (ifm (eqm (Mvar 1) (i n1)) (subbol_msg' (eqm (Mvar 1) (i n2)) (eqm (Mvar 1) (i n2)) t1) t2)).
+rewrite sub_invar with(b:= (eqm (Mvar 1) (i n2))) (t:= t1). reflexivity.
+assert( (eqm (Mvar 1) (i n2))  ##  (eqm (Mvar 1) (i n2)) & TRue).
 simpl. unfold andB. rewrite IFTFb. reflexivity.
 rewrite H1 in H0 at 2.
-assert((if_then_else_M (EQ_M (Mvar 1) (i n1)) 
-            (subbol_msg' (EQ_M (Mvar 1) (i n2))
-               (EQ_M (Mvar 1) (i n2)) & (TRue) t1) t2) # (if_then_else_M (EQ_M (Mvar 1) (i n1))
-            (subbol_msg' (EQ_M (Mvar 1) (i n2))
-               (EQ_M (Mvar 1) (i n2)) & (EQ_M (Mvar 1) (i n1))  t1)  t2)).
- rewrite IFEVAL_M' with (t1:=  (subbol_msg' (EQ_M (Mvar 1) (i n2))
-           (EQ_M (Mvar 1) (i n2)) & (EQ_M (Mvar 1) (i n1)) t1)).
+assert((ifm (eqm (Mvar 1) (i n1)) 
+            (subbol_msg' (eqm (Mvar 1) (i n2))
+               (eqm (Mvar 1) (i n2)) & (TRue) t1) t2) # (ifm (eqm (Mvar 1) (i n1))
+            (subbol_msg' (eqm (Mvar 1) (i n2))
+               (eqm (Mvar 1) (i n2)) & (eqm (Mvar 1) (i n1))  t1)  t2)).
+ rewrite IFEVAL_M' with (t1:=  (subbol_msg' (eqm (Mvar 1) (i n2))
+           (eqm (Mvar 1) (i n2)) & (eqm (Mvar 1) (i n1)) t1)).
 rewrite IFEVAL_M'.
 simpl. 
-assert( (subbol_msg' (EQ_M (Mvar 1) (i n1)) TRue
-         (subbol_msg' (EQ_M (Mvar 1) (i n2)) (EQ_M (Mvar 1) (i n2)) & (TRue)
-            t1)) # (subbol_msg' (EQ_M (Mvar 1) (i n1)) TRue
-           (subbol_msg' (EQ_M (Mvar 1) (i n2))
-              (EQ_M (Mvar 1) (i n2)) & (EQ_M (Mvar 1) (i n1)) t1))).
+assert( (subbol_msg' (eqm (Mvar 1) (i n1)) TRue
+         (subbol_msg' (eqm (Mvar 1) (i n2)) (eqm (Mvar 1) (i n2)) & (TRue)
+            t1)) # (subbol_msg' (eqm (Mvar 1) (i n1)) TRue
+           (subbol_msg' (eqm (Mvar 1) (i n2))
+              (eqm (Mvar 1) (i n2)) & (eqm (Mvar 1) (i n1)) t1))).
 repeat rewrite sub_in_sub. 
 
 simpl.  rewrite <- beq_nat_refl. 
@@ -150,14 +150,14 @@ rewrite H in H0.
 assumption. 
 Qed.
 Axiom IFMORPH_M2':  forall  ( b b1 b2 : Bool) (y z : message),
-      (if_then_else_M (if_then_else_B b b1 b2) y z)
-      # (if_then_else_M b (if_then_else_M b1 y z)
-           (if_then_else_M b2 y z)).
-Axiom IFEVAL_M''': forall (n1 n2: nat) (x t1 t2:message), beq_nat n1 n2 = false -> (if_then_else_M  (EQ_M x (i n1)) t1 t2) # (if_then_else_M  (EQ_M x (i n1)) (subbol_msg' (EQ_M x (i n2)) FAlse t1) t2).
+      (ifm (ifb b b1 b2) y z)
+      # (ifm b (ifm b1 y z)
+           (ifm b2 y z)).
+Axiom IFEVAL_M''': forall (n1 n2: nat) (x t1 t2:message), beq_nat n1 n2 = false -> (ifm  (eqm x (i n1)) t1 t2) # (ifm  (eqm x (i n1)) (subbol_msg' (eqm x (i n2)) FAlse t1) t2).
 
 Axiom andB_elm'':  forall (b1 b2 : Bool) (x y : message),
-        (if_then_else_M (if_then_else_B b1 b2 FAlse) x y)
-       # (if_then_else_M b1 (if_then_else_M b2 x y) y).
+        (ifm (ifb b1 b2 FAlse) x y)
+       # (ifm b1 (ifm b2 x y) y).
    
 (** Some tactics defined here *)
 
@@ -191,12 +191,12 @@ match goal with
 
 Ltac rew_andB_elm_msg :=
 repeat match goal with 
-|[H: _ |-  context [(if_then_else_M  ((Bvar ?n2) & ?P) ?X ?Y )] ] => andB_elm_msg n2 X Y 
+|[H: _ |-  context [(ifm  ((Bvar ?n2) & ?P) ?X ?Y )] ] => andB_elm_msg n2 X Y 
 end.
 
 Ltac rew_andB_elm_in_msg H1 := 
 repeat match goal with
- |[H: context [(if_then_else_M ((Bvar ?n2) & ?P) ?X ?Y )] |- _ ] =>  andB_elm_msg_in n2 X Y H1 end.
+ |[H: context [(ifm ((Bvar ?n2) & ?P) ?X ?Y )] |- _ ] =>  andB_elm_msg_in n2 X Y H1 end.
 
 (***********************not sure if we require them*****)
 
@@ -213,12 +213,12 @@ match goal with
 
 Ltac rew_andB_elm_bol :=
 repeat match goal with 
-|[H: _ |-  context [(if_then_else_B ((Bvar ?n2) & ?P) ?X ?Y )] ] => andB_elm_bol  n2 X Y 
+|[H: _ |-  context [(ifb ((Bvar ?n2) & ?P) ?X ?Y )] ] => andB_elm_bol  n2 X Y 
 end.
 
 Ltac rew_andB_elm_in_bol H1 := 
 repeat match goal with
- |[H: context [(if_then_else_B ((Bvar ?n2) & ?P) ?X ?Y )] |- _ ] =>  andB_elm_bol_in n2 X Y H1 end.
+ |[H: context [(ifb ((Bvar ?n2) & ?P) ?X ?Y )] |- _ ] =>  andB_elm_bol_in n2 X Y H1 end.
 
 (******************************************IFTF***********************************)
 
@@ -234,12 +234,12 @@ end.
 
 Ltac rew_IFTF_all_in H1  := 
 repeat match goal with 
-|[ H : context [  (if_then_else_B ?X TRue FAlse)]   |- _ ] => rew_IFTF_in X H1 
+|[ H : context [  (ifb ?X TRue FAlse)]   |- _ ] => rew_IFTF_in X H1 
 end. 
 
 Ltac rew_IFTF_all  := 
 repeat match goal with 
-|[ H : _ |-  context [ if_then_else_B ?X TRue FAlse ]  ] => rew_IFTF X 
+|[ H : _ |-  context [ ifb ?X TRue FAlse ]  ] => rew_IFTF X 
 end. 
 
 (*************IFMORPH*****message_bool*******)
@@ -256,12 +256,12 @@ match goal with
 
 Ltac rew_ifmor_msg_bol :=
 repeat match goal with 
-|[ H : _ |-  context [ if_then_else_M (if_then_else_B (Bvar ?n1) ?Y ?Z) ?P ?Q]  ] => ifmor_msg_bol n1 Y Z P Q
+|[ H : _ |-  context [ ifm (ifb (Bvar ?n1) ?Y ?Z) ?P ?Q]  ] => ifmor_msg_bol n1 Y Z P Q
 end. 
 
 Ltac rew_ifmor_msg_bol_in H1 :=
 repeat match goal with 
-|[ H : context [ if_then_else_M (if_then_else_B (Bvar ?n1) ?Y ?Z) ?P ?Q]   |- _ ] => ifmor_msg_bol_in n1 Y Z P Q H1
+|[ H : context [ ifm (ifb (Bvar ?n1) ?Y ?Z) ?P ?Q]   |- _ ] => ifmor_msg_bol_in n1 Y Z P Q H1
 end. 
 
 (********************IFMRPH***********Bool_Bool_fst*****************)
@@ -278,12 +278,12 @@ match goal with
 
 Ltac rew_ifmor_bol_bol_fst :=
 repeat match goal with 
-|[ H : _ |-  context [ if_then_else_B (if_then_else_B (Bvar ?n1) ?Y ?Z) ?P ?Q]  ] =>  ifmor_bol_bol_fst n1 Y Z P Q
+|[ H : _ |-  context [ ifb (ifb (Bvar ?n1) ?Y ?Z) ?P ?Q]  ] =>  ifmor_bol_bol_fst n1 Y Z P Q
 end. 
 
 Ltac rew_ifmor_bol_bol_in_fst H1 :=
 repeat match goal with 
-|[ H : context [ if_then_else_B (if_then_else_B (Bvar ?n1) ?Y ?Z) ?P ?Q]   |- _ ] =>  ifmor_bol_bol_fst_in n1 Y Z P Q H1
+|[ H : context [ ifb (ifb (Bvar ?n1) ?Y ?Z) ?P ?Q]   |- _ ] =>  ifmor_bol_bol_fst_in n1 Y Z P Q H1
 end. 
 
 (********************IFMRPH***********Bool_Bool_snd*****************)
@@ -300,12 +300,12 @@ match goal with
 
 Ltac rew_ifmor_bol_bol_snd :=
 repeat match goal with 
-|[ H : _ |-  context [ if_then_else_B (Bvar ?n1) (if_then_else_B (Bvar ?n2) ?B1 ?B2) ?B3 ]  ] =>  ifmor_bol_bol_snd n1 n2 B1 B2 B3
+|[ H : _ |-  context [ ifb (Bvar ?n1) (ifb (Bvar ?n2) ?B1 ?B2) ?B3 ]  ] =>  ifmor_bol_bol_snd n1 n2 B1 B2 B3
 end. 
 
 Ltac rew_ifmor_bol_bol_in_snd H1 :=
 repeat match goal with 
-|[ H : context [ (if_then_else_B (Bvar ?n1) (if_then_else_B (Bvar ?n2) ?B1 ?B2) ?B3)]   |- _ ] =>  ifmor_bol_bol_snd_in n1 n2 B1 B2 B3 H1
+|[ H : context [ (ifb (Bvar ?n1) (ifb (Bvar ?n2) ?B1 ?B2) ?B3)]   |- _ ] =>  ifmor_bol_bol_snd_in n1 n2 B1 B2 B3 H1
 end. 
 
 (**************************************recent***************Testing************)
@@ -313,19 +313,19 @@ end.
 
 Ltac aply_breq :=
 match goal with
-| [|- (if_then_else_M ?B ?X1 ?Y1) # (if_then_else_M ?B ?X2 ?Y2) ] =>  apply breq_msgeq'; simpl; redg; try reflexivity
+| [|- (ifm ?B ?X1 ?Y1) # (ifm ?B ?X2 ?Y2) ] =>  apply breq_msgeq'; simpl; redg; try reflexivity
 end.
 
 Ltac aply_breq_same :=
 match goal with
-| [|- (if_then_else_M ?B ?X ?Y1) # (if_then_else_M ?B ?X ?Y2) ] =>  apply breq_msgeq1'; simpl
+| [|- (ifm ?B ?X ?Y1) # (ifm ?B ?X ?Y2) ] =>  apply breq_msgeq1'; simpl
 end.
 
 (********************************three sessions 1 2 3 *************************)
 (******************tactics to make (to x) = j is false if (to x) = i is true where i <> j *********)
 Ltac false_to_sesns n  := 
 match goal with 
-| [|- (if_then_else_M (EQ_M ?X (i ?N)) ?X1 ?Y1) #  (if_then_else_M (EQ_M ?X (i ?N)) ?X2 ?Y2) ] => assert (beq_nat N n =false) ; try reflexivity ;
+| [|- (ifm (eqm ?X (i ?N)) ?X1 ?Y1) #  (ifm (eqm ?X (i ?N)) ?X2 ?Y2) ] => assert (beq_nat N n =false) ; try reflexivity ;
 match goal with 
 | [H: beq_nat ?N ?N2 = false |- _ ] => 
   apply IFEVAL_M''' with (x:= X ) (n1:= N) (n2:= N2) (t1 := X1) (t2:= Y1) in H; rewrite H; clear H end; assert (beq_nat N n =false) ; try reflexivity ;
@@ -341,7 +341,7 @@ Ltac  false_to_sesns_all := try false_to_sesns 1; try false_to_sesns 2; try fals
 
 Ltac aply_andB_elm := 
 match goal with 
-|[|- context[if_then_else_M (if_then_else_B ?B1 ?B2 FAlse) ?T1 ?T2 ] ] => rewrite andB_elm' with (b1:= B1) (b2:= B2) (x:= T1) (y:= T2)
+|[|- context[ifm (ifb ?B1 ?B2 FAlse) ?T1 ?T2 ] ] => rewrite andB_elm' with (b1:= B1) (b2:= B2) (x:= T1) (y:= T2)
 end.
 
 

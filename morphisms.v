@@ -18,8 +18,9 @@ Load "definitions".
 
 forall n, relation (mylist n).
 ]]
-
+ 
  *)
+
 Parameter EQI : forall {n }, relation (mylist n).
 
 Notation "ml1 '~' ml2" := (EQI  ml1 ml2) (at level 0, right associativity).
@@ -59,7 +60,7 @@ as EQI_rel.
 
 (** Equivalence relation [EQm] defined on [message] type.  *)
 
-Definition EQm : relation message := fun (m1:message)  (m2: message) =>  [bol (EQ_M m1 m2)] ~ [ bol TRue].
+Definition EQm : relation message := fun (m1:message)  (m2: message) =>  [bol (eqm m1 m2)] ~ [ bol TRue].
 
 Notation "ml1 '#' ml2" := (EQm ml1 ml2) (at level 5).
 
@@ -94,7 +95,7 @@ Qed.
 
 (** Equivalence relation [EQb] defined on [Bool] type.  *)
 
-Definition EQb : relation Bool := fun (b1:Bool)  (b2: Bool) =>  [bol (EQ_B b1 b2)] ~ [ bol TRue].
+Definition EQb : relation Bool := fun (b1:Bool)  (b2: Bool) =>  [bol (eqb b1 b2)] ~ [ bol TRue].
 Notation "b1 '##' b2" := (EQb b1 b2) (at level 5).
 
 Axiom BolEQ: equiv Bool EQb.
@@ -128,8 +129,8 @@ Qed.
 (** Equivalence relation [EQos] on [oursum] type. *)
 
 Inductive EQos :  relation oursum := 
-|  eqm: forall (m1 m2: message), m1 # m2 ->  EQos (msg m1) (msg m2)
-|  eqb: forall (b1 b2: Bool), b1 ## b2 ->  EQos (bol b1) (bol b2).
+|  eqm1: forall (m1 m2: message), m1 # m2 ->  EQos (msg m1) (msg m2)
+|  eqb1: forall (b1 b2: Bool), b1 ## b2 ->  EQos (bol b1) (bol b2).
 
 Notation "ml1 '###' ml2" := (EQos ml1 ml2) (at level 5).
 
@@ -139,14 +140,14 @@ split.
 unfold Reflexive;
 intros;
 destruct x;
-try apply eqm; try apply eqb;
+try apply eqm1; try apply eqb1;
 reflexivity.
 unfold Symmetric; intros; destruct H;  
-    try apply eqm; try apply eqb; symmetry; assumption.
+    try apply eqm1; try apply eqb1; symmetry; assumption.
 unfold Transitive; intros.
   inversion H; subst;
   inversion H0; subst;
-  try apply  eqm; try apply eqb;   
+  try apply  eqm1; try apply eqb1;   
   rewrite H1;
   apply H3.   
 
@@ -406,17 +407,17 @@ Add Parametric Morphism: (@ k) with
 
 (** [pk_mor] *) 
 
-Axiom pk_Cong: forall (m1 m1' : message), m1 # m1' -> (pk m1) # (pk m1' ).
+Axiom pk_Cong: forall (m1 m1' : nat), m1 = m1' -> (pk m1) # (pk m1' ).
 Add Parametric Morphism: (@ pk) with
-  signature EQm ==> EQm as pk_mor.
- Proof.   intros. apply pk_Cong. assumption. Qed.
+  signature eq ==> EQm as pk_mor.
+ Proof.   intros. apply pk_Cong. reflexivity. Qed.
 
 (** [sk_mor] *)
 
-Axiom sk_Cong: forall (m1 m1' : message), m1 # m1' -> (sk m1) # (sk m1' ).
+Axiom sk_Cong: forall (m1 m1' : nat), m1 = m1' -> (sk m1) # (sk m1' ).
 Add Parametric Morphism: (@ sk) with
-  signature EQm ==> EQm as sk_mor.
- Proof.   intros. apply sk_Cong. assumption. Qed.
+  signature eq ==> EQm as sk_mor.
+ Proof.   intros. apply sk_Cong. reflexivity. Qed.
 
  (** [f_mor] *)
  
@@ -429,32 +430,32 @@ Proof.   intros. apply f_Cong. assumption. Qed.
 
 (** [ifb_mor] *)
 
-Axiom IFB_Cong: forall (b1 b2 b3 b1' b2' b3': Bool), b1 ## b1' -> b2 ## b2' -> b3 ## b3' -> (if_then_else_B b1 b2 b3) ## (if_then_else_B b1' b2' b3').
-Add Parametric Morphism: (@if_then_else_B) with
+Axiom IFB_Cong: forall (b1 b2 b3 b1' b2' b3': Bool), b1 ## b1' -> b2 ## b2' -> b3 ## b3' -> (ifb b1 b2 b3) ## (ifb b1' b2' b3').
+Add Parametric Morphism: (@ifb) with
   signature EQb ==> EQb ==> EQb ==> EQb as ifb_mor.
  Proof.   intros. apply IFB_Cong; assumption. Qed.
 
 (** [ifm_mor] *)
 
- Axiom IFM_Cong: forall (b b' : Bool) ( m1 m2 m1' m2': message), (b ## b') -> m1 # m1' -> m2 # m2' -> (if_then_else_M b m1 m2) # (if_then_else_M b' m1' m2').
-Add Parametric Morphism: (@if_then_else_M) with
+ Axiom IFM_Cong: forall (b b' : Bool) ( m1 m2 m1' m2': message), (b ## b') -> m1 # m1' -> m2 # m2' -> (ifm b m1 m2) # (ifm b' m1' m2').
+Add Parametric Morphism: (@ifm) with
   signature EQb ==> EQm ==> EQm ==> EQm as ifm_mor.
  Proof.   intros. apply IFM_Cong; assumption. Qed.
 
- (** [EQ_B_mor] *)
+ (** [eqb_mor] *)
  
-Axiom EQ_B_Cong: forall (b1 b2 b1' b2': Bool),  b1 ## b1' -> b2 ## b2' ->  (EQ_B b1 b2) ## (EQ_B b1' b2').
-Add Parametric Morphism: (@EQ_B) with
-signature EQb ==> EQb ==> EQb as EQ_B_mor.
-Proof.   intros. apply EQ_B_Cong; assumption. Qed.
+Axiom eqb_Cong: forall (b1 b2 b1' b2': Bool),  b1 ## b1' -> b2 ## b2' ->  (eqb b1 b2) ## (eqb b1' b2').
+Add Parametric Morphism: (@eqb) with
+signature EQb ==> EQb ==> EQb as eqb_mor.
+Proof.   intros. apply eqb_Cong; assumption. Qed.
 
-(** [EQ_M_mor] *)
+(** [eqm_mor] *)
 
-Axiom EQ_M_Cong: forall (m1 m2 m1' m2' : message), m1 # m1' -> m2 # m2' -> (EQ_M m1 m2) ## (EQ_M m1' m2').
+Axiom eqm_Cong: forall (m1 m2 m1' m2' : message), m1 # m1' -> m2 # m2' -> (eqm m1 m2) ## (eqm m1' m2').
 
-Add Parametric Morphism: (@EQ_M) with
-  signature EQm ==> EQm ==> EQb as EQ_M_mor.
- Proof.   intros. apply EQ_M_Cong; assumption. Qed.
+Add Parametric Morphism: (@eqm) with
+  signature EQm ==> EQm ==> EQb as eqm_mor.
+ Proof.   intros. apply eqm_Cong; assumption. Qed.
 
 (** [EQ_L_mor] *)
 Axiom EQL_Cong : forall (m1 m2 m1' m2' : message), m1 # m1' -> m2 # m2' -> (EQL m1 m2 ) ## (EQL m1' m2').
@@ -523,7 +524,7 @@ Axiom msg_Cong: forall (m1 m1'  : message), m1 # m1'  -> (msg m1 ) ### (msg m1')
 
 Add Parametric Morphism : (@msg ) with
 signature EQm ==> EQos as msg_mor.
-Proof. intros. apply eqm. apply H. Qed.
+Proof. intros. apply eqm1. apply H. Qed.
 
 (** [bol_mor] *)
 
@@ -531,7 +532,7 @@ Axiom bol_Cong: forall (b1 b1'  : Bool), b1 ## b1'  -> (bol b1 ) ### (bol b1').
 
 Add Parametric Morphism : (@bol ) with
 signature EQb ==> EQos as bol_mor.
-Proof.  intros. apply eqb. apply H. Qed. 
+Proof.  intros. apply eqb1. apply H. Qed. 
 
 (** [Cons_mor] *)
 
@@ -604,17 +605,17 @@ assumption. Qed.
 
 (** Equality of [Bool] terms using indistinguishability. *)
 
-Definition EQI_bol (b1 b2: Bool) := [ bol (EQ_B b1 b2)] ~ [bol TRue].
+Definition EQI_bol (b1 b2: Bool) := [ bol (eqb b1 b2)] ~ [bol TRue].
 
 Notation "b1 ## b2" := (EQI_bol b1 b2)(at level 5). 
 
 (** Equality of [message] terms using indistinguishability. *)
 
-Definition EQI_msg (x y : message) :=  [ bol (EQ_M x y)] ~ [ bol TRue] .
+Definition EQI_msg (x y : message) :=  [ bol (eqm x y)] ~ [ bol TRue] .
 
 Notation "m1 # m2" := (EQI_msg m1 m2)(at level 5).
 
 (** Attacker starts new session. *)
 
-Definition Att_new_session:= forall x:message,  (EQ_M (act x) new)  ## TRue .
+Definition Att_new_session:= forall x:message,  (eqm (act x) new)  ## TRue .
 

@@ -27,15 +27,15 @@ Fixpoint subtrmls_bol  (t: Bool) : list message :=
 | Bvar n' => nil
 | FAlse => nil
 | TRue => nil
-| EQ_B  b1 b2 =>  (app (subtrmls_bol  b1) (subtrmls_bol b2) )
-| EQ_M t1 t2 => (app (subtrmls_msg t1) (subtrmls_msg t2) )
-| if_then_else_B t1 t2 t3 => (app (subtrmls_bol t1) (app (subtrmls_bol t2) (subtrmls_bol t3)))
+| eqb  b1 b2 =>  (app (subtrmls_bol  b1) (subtrmls_bol b2) )
+| eqm t1 t2 => (app (subtrmls_msg t1) (subtrmls_msg t2) )
+| ifb t1 t2 t3 => (app (subtrmls_bol t1) (app (subtrmls_bol t2) (subtrmls_bol t3)))
 | EQL t1 t2 => (app (subtrmls_msg t1) (subtrmls_msg t2) )
 | ver t1 t2 t3 =>(app (subtrmls_msg t1) (app (subtrmls_msg t2) (subtrmls_msg t3)))
  end
 with subtrmls_msg (t:message) : list message :=
  match t with 
-| if_then_else_M b3 t1 t2 => (app (cons (if_then_else_M b3 t1 t2) nil)  (app (subtrmls_bol b3) (app (subtrmls_msg t1) (subtrmls_msg t2))))
+| ifm b3 t1 t2 => (app (cons (ifm b3 t1 t2) nil)  (app (subtrmls_bol b3) (app (subtrmls_msg t1) (subtrmls_msg t2))))
 | (Mvar n') => (cons (Mvar n') nil)
 | acc => (cons acc nil)
 | lnc => (cons lnc nil)
@@ -63,7 +63,7 @@ with subtrmls_msg (t:message) : list message :=
 | i n' => nil
 |f  l => ((cons (f l) (@subtrmls subtrmls_msg l)))
  end.
-Eval compute in (subtrmls_msg (sign (if_then_else_M TRue (dec O (sk (N 1))) O) new)).
+Eval compute in (subtrmls_msg (sign (ifm TRue (dec O (sk 1)) O) new)).
 
 (** Subterms of [oursum] term. *)
 
@@ -89,15 +89,15 @@ Fixpoint onlyin_pkrsk_bol (n : nat )(t:Bool) : bool :=
 | Bvar n' => if (beq_nat n' n) then false else true
 | FAlse => true
 | TRue => true
-| EQ_B  b1 b2 =>  (andb (onlyin_pkrsk_bol n b1)  (onlyin_pkrsk_bol n b2))
-| EQ_M t1 t2 => andb (onlyin_pkrsk_msg n t1) ( onlyin_pkrsk_msg n t2)
-| if_then_else_B t1 t2 t3 =>  (andb (onlyin_pkrsk_bol n t1) (andb (onlyin_pkrsk_bol n t2) ( onlyin_pkrsk_bol n t3)))
+| eqb  b1 b2 =>  (andb (onlyin_pkrsk_bol n b1)  (onlyin_pkrsk_bol n b2))
+| eqm t1 t2 => andb (onlyin_pkrsk_msg n t1) ( onlyin_pkrsk_msg n t2)
+| ifb t1 t2 t3 =>  (andb (onlyin_pkrsk_bol n t1) (andb (onlyin_pkrsk_bol n t2) ( onlyin_pkrsk_bol n t3)))
 | EQL t1 t2 =>  (andb (onlyin_pkrsk_msg n t1) ( onlyin_pkrsk_msg n t2))
 | ver t1 t2 t3 => (andb (onlyin_pkrsk_msg n t1) (andb (onlyin_pkrsk_msg n t2) ( onlyin_pkrsk_msg n t3)))
  end
 with onlyin_pkrsk_msg (n : nat )(t:message) : bool :=
  match t with 
-| if_then_else_M b t1 t2 => (andb (onlyin_pkrsk_bol n b) (andb (onlyin_pkrsk_msg n t1) ( onlyin_pkrsk_msg n t2)))
+| ifm b t1 t2 => (andb (onlyin_pkrsk_bol n b) (andb (onlyin_pkrsk_msg n t1) ( onlyin_pkrsk_msg n t2)))
 | (Mvar n') =>  if (beq_nat n' n) then false else true
 | O => true
 | acc => true
@@ -155,15 +155,15 @@ Fixpoint skn_in_sign_bol (n : nat )(t:Bool) : bool :=
 | Bvar n' =>  true
 | FAlse => true
 | TRue => true
-| EQ_B  b1 b2 =>  (andb (skn_in_sign_bol n b1)  (skn_in_sign_bol n b2))
-| EQ_M t1 t2 => andb (skn_in_sign_msg n t1) ( skn_in_sign_msg n t2)
-| if_then_else_B t1 t2 t3 =>  (andb (skn_in_sign_bol n t1) (andb (skn_in_sign_bol n t2) ( skn_in_sign_bol n t3)))
+| eqb  b1 b2 =>  (andb (skn_in_sign_bol n b1)  (skn_in_sign_bol n b2))
+| eqm t1 t2 => andb (skn_in_sign_msg n t1) ( skn_in_sign_msg n t2)
+| ifb t1 t2 t3 =>  (andb (skn_in_sign_bol n t1) (andb (skn_in_sign_bol n t2) ( skn_in_sign_bol n t3)))
 | EQL t1 t2 =>  (andb (skn_in_sign_msg n t1) ( skn_in_sign_msg n t2))
 | ver t1 t2 t3 => (andb (skn_in_sign_msg n t1) (andb (skn_in_sign_msg n t2) ( skn_in_sign_msg n t3)))
  end
 with skn_in_sign_msg (n : nat )(t:message) : bool :=
  match t with 
-| if_then_else_M b t1 t2 => (andb (skn_in_sign_bol n b) (andb (skn_in_sign_msg n t1) ( skn_in_sign_msg n t2)))
+| ifm b t1 t2 => (andb (skn_in_sign_bol n b) (andb (skn_in_sign_msg n t1) ( skn_in_sign_msg n t2)))
 | (Mvar n') => true
 | O => true
 | acc => true
@@ -212,8 +212,8 @@ match t with
 | []  => true
 | h:: tl=> (andb (skn_in_sign_os n h)  (skn_in_sign_mylist  n tl)) 
 end.
-Eval compute in (sk (N 2)).
-Eval compute in skn_in_sign_msg 1 (sign (sk (N 2)) O).
+Eval compute in (sk 2).
+Eval compute in skn_in_sign_msg 1 (sign (sk 2) O).
 
 (** List of subterms of the form [sign ( sk(N n), t1),.....,sign ( sk(N n), tl)]. *)
 
@@ -226,12 +226,12 @@ match l with
             end) 
              (list_skn_in_sign n tl))
 end.
-Eval compute in ( list_skn_in_sign 1 (subtrmls_msg (sign (if_then_else_M TRue (dec O (sk (N 1))) O) new))).
+Eval compute in ( list_skn_in_sign 1 (subtrmls_msg (sign (ifm TRue (dec O (sk 1)) O) new))).
 
 (** * Axioms *)
 
 (** Correctness *)
-Axiom correctness :  forall (n:nat) (t :message), (ver (pk (N n))  t (sign (sk (N n)) t)) ## TRue.
+Axiom correctness :  forall (n:nat) (t :message), (ver (pk n)  t (sign (sk n) t)) ## TRue.
 
 (** Existential unforgeability under adaptively chosen message attacks (UF-CMA secure) *)
 
@@ -239,7 +239,7 @@ Fixpoint b  (j:nat) (k:nat) {n: nat} (ml: ilist message (n)) (t u :message) : Bo
  match j, ml with
    |  0 , _  => FAlse
    |  S _, []  => FAlse             
-   | S j', h::tl => if_then_else_B  (EQ_M t h) (ver (pk (N k)) h u) (b j' k tl t u)         
+   | S j', h::tl => ifb  (eqm t h) (ver (pk k) h u) (b j' k tl t u)         
   end.    
  
-Axiom UFCMA : forall (n l :nat)(ml: ilist message l) (t u: message), (clos_mylist [ msg t; msg u] = true) /\ (onlyin_pkrsk_mylist n [msg t; msg u] = true) /\ (skn_in_sign_mylist n [msg t; msg u] = true) /\ (l = length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))))   ->  (ver (pk (N n)) t u) ## (b l n ml t u).
+Axiom UFCMA : forall (n l :nat)(ml: ilist message l) (t u: message), (clos_mylist [ msg t; msg u] = true) /\ (onlyin_pkrsk_mylist n [msg t; msg u] = true) /\ (skn_in_sign_mylist n [msg t; msg u] = true) /\ (l = length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))))   ->  (ver (pk n) t u) ## (b l n ml t u).

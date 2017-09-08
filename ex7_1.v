@@ -12,6 +12,7 @@ Load "andbprops".
 [ if b then t1[[if b then x1 else y1]] else t2[[if b then x2 else y2]] = if b then t1[[x1]] else t2[[y2]] ] *)
 
 (*Bool in Bool*)
+
 (** tactic Fr_pf1 *)
 Ltac Fr_pf1 := 
 repeat match goal with 
@@ -20,8 +21,8 @@ repeat match goal with
 | [ H : beq_nat ?X ?Y = _ |- _ ] =>  match goal with | [H1: context [ if beq_nat ?X ?Y then _ else _ ] |- _ ] =>  rewrite H in H1;  simpl in H1 end end; try assumption ; try reflexivity.
 
 Theorem Ex9bol_bol: forall (b1 b2: Bool )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_blist n [b1 ; b2]  = true) 
-                     ->  (if_then_else_B (Bvar n) ([n5:= (if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))] b1) ([n6:=  (if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))] b2))
-                      ##  ( if_then_else_B (Bvar n) ([n5:= (Bvar n1)] b1)                                     ([n6:= (Bvar n4)] b2) ) .
+                     ->  (ifb (Bvar n) ([n5:= (ifb (Bvar n) (Bvar n1) (Bvar n2))] b1) ([n6:=  (ifb (Bvar n) (Bvar n3) (Bvar n4))] b2))
+                      ##  ( ifb (Bvar n) ([n5:= (Bvar n1)] b1)                                     ([n6:= (Bvar n4)] b2) ) .
 Proof.
 intros.
 inversion H.
@@ -50,14 +51,14 @@ rewrite H3.
 rewrite H4.
 reflexivity.
 reflexivity.
-rewrite IFEVAL_B with(n:=n)(b1:=  [n5 := if_then_else_B (Bvar n) (Bvar n1) (Bvar n2)](b1)) (b2:=  [n6 := if_then_else_B (Bvar n) (Bvar n3) (Bvar n4)](b2)).
-rewrite  notocc_bolbb with (n1 :=n ) (n2:=n5) (b := TRue) (b1:= if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))(b2:= b1).
+rewrite IFEVAL_B with(n:=n)(b1:=  [n5 := ifb (Bvar n) (Bvar n1) (Bvar n2)](b1)) (b2:=  [n6 := ifb (Bvar n) (Bvar n3) (Bvar n4)](b2)).
+rewrite  notocc_bolbb with (n1 :=n ) (n2:=n5) (b := TRue) (b1:= ifb (Bvar n) (Bvar n1) (Bvar n2))(b2:= b1).
  simpl.
 rewrite <- beq_nat_refl.
 rewrite IFTRUE_B .
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 simpl.
-rewrite  notocc_bolbb with (n1 :=n ) (n2:=n6) (b := FAlse) (b1:= if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))(b2:= b2).
+rewrite  notocc_bolbb with (n1 :=n ) (n2:=n6) (b := FAlse) (b1:= ifb (Bvar n) (Bvar n3) (Bvar n4))(b2:= b2).
 simpl.
 rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
@@ -69,8 +70,8 @@ try rewrite H9; reflexivity.
 Qed.
 
 
-Theorem Ex9bol_bol1: forall (b b1 b2: Bool )( n1 n2 n3 n4 n5 n6 :nat),   (if_then_else_B b ([n5:= (if_then_else_B b (Bvar n1) (Bvar n2))] b1) ([n6:=  (if_then_else_B b (Bvar n3) (Bvar n4))] b2))
-                      ##  ( if_then_else_B b ([n5:= (Bvar n1)] b1)                                     ([n6:= (Bvar n4)] b2) ) .
+Theorem Ex9bol_bol1: forall (b b1 b2: Bool )( n1 n2 n3 n4 n5 n6 :nat),   (ifb b ([n5:= (ifb b (Bvar n1) (Bvar n2))] b1) ([n6:=  (ifb b (Bvar n3) (Bvar n4))] b2))
+                      ##  ( ifb b ([n5:= (Bvar n1)] b1)                                     ([n6:= (Bvar n4)] b2) ) .
 
 Proof.
 intros.
@@ -107,13 +108,13 @@ rewrite <- H0. try  repeat reflexivity. reflexivity.
 apply Ex9bol_bol with (n5:= n5)(n6:=n6)in H1.
 apply Forall_ELM_EVAL_B with (n:=z)(b:= b)in H1.
 simpl in H1.
-(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
- rewrite  notocc_bolbb with (n1 :=z ) (n2:=n5) (b := b) (b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.
+(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
+ rewrite  notocc_bolbb with (n1 :=z ) (n2:=n5) (b := b) (b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.
 rewrite <- beq_nat_refl in H1.
 simpl in H1.
 rewrite <- beq_nat_refl in H1.
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
-rewrite  notocc_bolbb with (n1 :=z ) (n2:=n6) (b := b) (b1:= if_then_else_B (Bvar z) (Bvar n3) (Bvar n4))(b2:= b2) in H1.
+rewrite  notocc_bolbb with (n1 :=z ) (n2:=n6) (b := b) (b1:= ifb (Bvar z) (Bvar n3) (Bvar n4))(b2:= b2) in H1.
 simpl in H1; rewrite <- beq_nat_refl in H1 ;
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 rewrite  notocc_bolbb with (n1 :=z ) (n2:=n5) (b := b) (b1:= (Bvar n1))(b2:= b1) in H1. 
@@ -136,8 +137,8 @@ Qed.
 
 
 Theorem Ex9bol_msg: forall (m1 m2: message )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_mlist n [m1 ; m2]  = true) 
-                     -> (if_then_else_M  (Bvar n) ((n5:=  (if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))) m1)
-((n6:=  (if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))) m2)) #  (if_then_else_M (Bvar n) ( (n5:= (Bvar n1)) m1) ((n6:= (Bvar n4)) m2) )  .
+                     -> (ifm  (Bvar n) ((n5:=  (ifb (Bvar n) (Bvar n1) (Bvar n2))) m1)
+((n6:=  (ifb (Bvar n) (Bvar n3) (Bvar n4))) m2)) #  (ifm (Bvar n) ( (n5:= (Bvar n1)) m1) ((n6:= (Bvar n4)) m2) )  .
 Proof. 
 intros.
 inversion H.
@@ -172,12 +173,12 @@ rewrite H3.
 rewrite H4.
 reflexivity.
 reflexivity. 
-rewrite IFEVAL_M with  (t1:=  (n5 := if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))(m1)) (t2:=  (n6 := if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))(m2)).
-rewrite notocc_bolbm with (n1 := n) (b := TRue) (n2:= n5) (b1 := (if_then_else_B (Bvar n) (Bvar n1) (Bvar n2))) (m:= m1).
+rewrite IFEVAL_M with  (t1:=  (n5 := ifb (Bvar n) (Bvar n1) (Bvar n2))(m1)) (t2:=  (n6 := ifb (Bvar n) (Bvar n3) (Bvar n4))(m2)).
+rewrite notocc_bolbm with (n1 := n) (b := TRue) (n2:= n5) (b1 := (ifb (Bvar n) (Bvar n1) (Bvar n2))) (m:= m1).
 simpl ;rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 rewrite IFTRUE_B .
-rewrite notocc_bolbm with (n1 := n) (b := FAlse) (n2:= n6) (b1 := (if_then_else_B (Bvar n) (Bvar n3) (Bvar n4))) (m:= m2).
+rewrite notocc_bolbm with (n1 := n) (b := FAlse) (n2:= n6) (b1 := (ifb (Bvar n) (Bvar n3) (Bvar n4))) (m:= m2).
 simpl ;rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 rewrite IFFALSE_B .
@@ -188,8 +189,8 @@ inversion H1;apply andb_prop in H7;inversion H7;rewrite H8; rewrite H6; apply an
 try rewrite H9; reflexivity.
 Qed.
 
-Theorem Ex9bol_msg1: forall (b : Bool ) (m1 m2 : message)(n1 n2 n3 n4 n5 n6:nat) ,  (if_then_else_M b ((n5:=  (if_then_else_B b (Bvar n1) (Bvar n2))) m1)
-((n6:=  (if_then_else_B b (Bvar n3) (Bvar n4))) m2)) #  (if_then_else_M b ( (n5:= (Bvar n1)) m1) ((n6:= (Bvar n4)) m2) ) .
+Theorem Ex9bol_msg1: forall (b : Bool ) (m1 m2 : message)(n1 n2 n3 n4 n5 n6:nat) ,  (ifm b ((n5:=  (ifb b (Bvar n1) (Bvar n2))) m1)
+((n6:=  (ifb b (Bvar n3) (Bvar n4))) m2)) #  (ifm b ( (n5:= (Bvar n1)) m1) ((n6:= (Bvar n4)) m2) ) .
 Proof.
 intros.
 assert(H:  exists n:nat, (notoccur_nlist n [n1 ; n2;n3;n4] = true ) /\(notoccur_mlist n [ m1 ; m2  ] = true)  ).
@@ -228,15 +229,15 @@ apply Ex9bol_msg with (n5:= n5)(n6:=n6)in H1.
 apply Forall_ELM_EVAL_M with (n:=z) (x:= b)in H1.
 simpl in H1.
 
-(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
- rewrite  notocc_bolbm with (n1 :=z ) (n2:=n5) (b := b) (b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(m:= m1) in H1.
+(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
+ rewrite  notocc_bolbm with (n1 :=z ) (n2:=n5) (b := b) (b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(m:= m1) in H1.
 rewrite <- beq_nat_refl in H1.
 
 simpl in H1.
 rewrite <- beq_nat_refl in H1.
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 
-rewrite  notocc_bolbm with (n1 :=z ) (n2:=n6) (b := b) (b1:= if_then_else_B (Bvar z) (Bvar n3) (Bvar n4))(m:= m2) in H1.
+rewrite  notocc_bolbm with (n1 :=z ) (n2:=n6) (b := b) (b1:= ifb (Bvar z) (Bvar n3) (Bvar n4))(m:= m2) in H1.
 simpl in H1; rewrite <- beq_nat_refl in H1 ;
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 rewrite  notocc_bolbm with (n1 :=z ) (n2:=n5) (b := b) (b1:= (Bvar n1))(m:= m1) in H1. 
@@ -261,8 +262,8 @@ Qed.
 (****message in message*******************)
 
 Theorem Ex9msg_msg: forall (m1 m2: message )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_mlist n [m1 ; m2]  = true) 
-                     ->  (if_then_else_M (Bvar n)(submsg_msg n5  (if_then_else_M (Bvar n) (Mvar n1) (Mvar n2) ) m1)
-(submsg_msg n6 (if_then_else_M (Bvar n) (Mvar n3) (Mvar n4) ) m2 ) )  #(if_then_else_M  (Bvar n)  (submsg_msg n5 (Mvar n1) m1) (submsg_msg n6 (Mvar n4) m2)) .
+                     ->  (ifm (Bvar n)(submsg_msg n5  (ifm (Bvar n) (Mvar n1) (Mvar n2) ) m1)
+(submsg_msg n6 (ifm (Bvar n) (Mvar n3) (Mvar n4) ) m2 ) )  #(ifm  (Bvar n)  (submsg_msg n5 (Mvar n1) m1) (submsg_msg n6 (Mvar n4) m2)) .
 Proof.
 
 Proof. 
@@ -295,12 +296,12 @@ rewrite H3.
 rewrite H4.
 reflexivity.
 reflexivity. 
-rewrite IFEVAL_M with  (t1:=  {{n5 := (if_then_else_M (Bvar n) (Mvar n1) (Mvar n2))}}(m1)) (t2:=  {{n6 :=  (if_then_else_M (Bvar n) (Mvar n3) (Mvar n4))}}(m2)).
-rewrite notocc_bolmm with (n1 := n) (b := TRue) (n2:= n5) (m1 := if_then_else_M (Bvar n) (Mvar n1) (Mvar n2)) (m2:= m1).
+rewrite IFEVAL_M with  (t1:=  {{n5 := (ifm (Bvar n) (Mvar n1) (Mvar n2))}}(m1)) (t2:=  {{n6 :=  (ifm (Bvar n) (Mvar n3) (Mvar n4))}}(m2)).
+rewrite notocc_bolmm with (n1 := n) (b := TRue) (n2:= n5) (m1 := ifm (Bvar n) (Mvar n1) (Mvar n2)) (m2:= m1).
 simpl ;rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 rewrite IFTRUE_M .
-rewrite notocc_bolmm with (n1 := n) (b := FAlse) (n2:= n6) (m1 := if_then_else_M (Bvar n) (Mvar n3) (Mvar n4)) (m2:= m2).
+rewrite notocc_bolmm with (n1 := n) (b := FAlse) (n2:= n6) (m1 := ifm (Bvar n) (Mvar n3) (Mvar n4)) (m2:= m2).
 simpl ;rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 rewrite IFFALSE_M .
@@ -312,8 +313,8 @@ try rewrite H9; reflexivity.
 
 Qed.
 
-Theorem Ex9msg_msg1: forall (m1 m2: message )(b:Bool)(n1 n2 n3 n4 n5 n6 :nat) , (if_then_else_M b (submsg_msg n5  (if_then_else_M b (Mvar n1) (Mvar n2) ) m1)
-(submsg_msg n6 (if_then_else_M b (Mvar n3) (Mvar n4) ) m2 ) ) #  ( if_then_else_M  b  (submsg_msg n5 (Mvar n1) m1) (submsg_msg n6 (Mvar n4) m2) ) .
+Theorem Ex9msg_msg1: forall (m1 m2: message )(b:Bool)(n1 n2 n3 n4 n5 n6 :nat) , (ifm b (submsg_msg n5  (ifm b (Mvar n1) (Mvar n2) ) m1)
+(submsg_msg n6 (ifm b (Mvar n3) (Mvar n4) ) m2 ) ) #  ( ifm  b  (submsg_msg n5 (Mvar n1) m1) (submsg_msg n6 (Mvar n4) m2) ) .
 
 Proof.
 
@@ -355,15 +356,15 @@ apply Ex9msg_msg with (n5:= n5)(n6:=n6)in H1.
 apply Forall_ELM_EVAL_M with (n:=z) (x:= b)in H1.
 simpl in H1.
 
-(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
- rewrite  notocc_bolmm with (n1 :=z ) (n2:=n5) (b := b) (m1 := if_then_else_M (Bvar z) (Mvar n1) (Mvar n2))(m2:= m1) in H1.
+(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
+ rewrite  notocc_bolmm with (n1 :=z ) (n2:=n5) (b := b) (m1 := ifm (Bvar z) (Mvar n1) (Mvar n2))(m2:= m1) in H1.
 rewrite <- beq_nat_refl in H1.
 
 simpl in H1.
 rewrite <- beq_nat_refl in H1.
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 
-rewrite  notocc_bolmm with (n1 :=z ) (n2:=n6) (b := b) (m1:= if_then_else_M (Bvar z) (Mvar n3) (Mvar n4))(m2:= m2) in H1.
+rewrite  notocc_bolmm with (n1 :=z ) (n2:=n6) (b := b) (m1:= ifm (Bvar z) (Mvar n3) (Mvar n4))(m2:= m2) in H1.
 simpl in H1; rewrite <- beq_nat_refl in H1 ;
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 rewrite  notocc_bolmm with (n1 :=z ) (n2:=n5) (b := b) (m1:= (Mvar n1))(m2:= m1) in H1. 
@@ -387,8 +388,8 @@ Qed.
 
 
 
-Theorem Ex9msg_bol:  forall (b1 b2: Bool )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_blist n [b1 ; b2]  = true) -> ( if_then_else_B (Bvar n) ([[n5:=  (if_then_else_M (Bvar n) (Mvar n1) (Mvar n2))]] b1)
-([[n6:=  (if_then_else_M (Bvar n) (Mvar n3) (Mvar n4))]] b2)) ## (if_then_else_B (Bvar n)  ( [[n5:= (Mvar n1)]] b1) ([[n6:= (Mvar n4)]] b2)) .
+Theorem Ex9msg_bol:  forall (b1 b2: Bool )(n n1 n2 n3 n4 n5 n6 :nat),  (notoccur_nlist n [n1 ; n2 ; n3;n4] = true)  /\ (notoccur_blist n [b1 ; b2]  = true) -> ( ifb (Bvar n) ([[n5:=  (ifm (Bvar n) (Mvar n1) (Mvar n2))]] b1)
+([[n6:=  (ifm (Bvar n) (Mvar n3) (Mvar n4))]] b2)) ## (ifb (Bvar n)  ( [[n5:= (Mvar n1)]] b1) ([[n6:= (Mvar n4)]] b2)) .
 Proof.
 intros.
 inversion H.
@@ -426,17 +427,17 @@ apply beq_nat_false_iff in H5.***)
 (***********************)
 
 
-rewrite IFEVAL_B with(n:=n)(b1:=  [[n5 := if_then_else_M (Bvar n) (Mvar n1) (Mvar n2)]](b1)) (b2:=  [[n6 := if_then_else_M (Bvar n) (Mvar n3) (Mvar n4)]](b2)).
-rewrite  notocc_bolmb with (n1 :=n ) (n2:=n5) (b := TRue) (m:= if_then_else_M (Bvar n) (Mvar n1) (Mvar n2))(b1:= b1).
-(**destruct Boolbolbol with (n:=n)(b:= TRue)(n1:= n5)(b1:= if_then_else_B (Bvar n) (Bvar n1) (Bvar n2)) (b2:=b1).**)
+rewrite IFEVAL_B with(n:=n)(b1:=  [[n5 := ifm (Bvar n) (Mvar n1) (Mvar n2)]](b1)) (b2:=  [[n6 := ifm (Bvar n) (Mvar n3) (Mvar n4)]](b2)).
+rewrite  notocc_bolmb with (n1 :=n ) (n2:=n5) (b := TRue) (m:= ifm (Bvar n) (Mvar n1) (Mvar n2))(b1:= b1).
+(**destruct Boolbolbol with (n:=n)(b:= TRue)(n1:= n5)(b1:= ifb (Bvar n) (Bvar n1) (Bvar n2)) (b2:=b1).**)
  simpl.
 rewrite <- beq_nat_refl.
 
 rewrite IFTRUE_M .
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
 simpl.
-rewrite  notocc_bolmb with (n1 :=n ) (n2:=n6) (b := FAlse) (m:= if_then_else_M (Bvar n) (Mvar n3) (Mvar n4))(b1:= b2).
-(*destruct Boolblbl with (n:=n)(b:= FAlse)(n1:= n6)(b1:= if_then_else_B (Bvar n) (Bvar n3) (Bvar n4)) (b2:=b2).*)
+rewrite  notocc_bolmb with (n1 :=n ) (n2:=n6) (b := FAlse) (m:= ifm (Bvar n) (Mvar n3) (Mvar n4))(b1:= b2).
+(*destruct Boolblbl with (n:=n)(b:= FAlse)(n1:= n6)(b1:= ifb (Bvar n) (Bvar n3) (Bvar n4)) (b2:=b2).*)
 simpl.
 rewrite <- beq_nat_refl.
 try rewrite H2; try rewrite H3; try rewrite H4; try rewrite H5.
@@ -448,8 +449,8 @@ try rewrite H9; reflexivity.
 Qed.
 
 
-Theorem Ex9msg_bol1: forall (b b1 b2: Bool )(n1 n2 n3 n4 n5 n6 :nat) , ( if_then_else_B b ([[n5:=  (if_then_else_M b (Mvar n1) (Mvar n2))]] b1)
-([[n6:=  (if_then_else_M b (Mvar n3) (Mvar n4))]] b2)) ## (if_then_else_B b  ( [[n5:= (Mvar n1)]] b1) ([[n6:= (Mvar n4)]] b2)) .
+Theorem Ex9msg_bol1: forall (b b1 b2: Bool )(n1 n2 n3 n4 n5 n6 :nat) , ( ifb b ([[n5:=  (ifm b (Mvar n1) (Mvar n2))]] b1)
+([[n6:=  (ifm b (Mvar n3) (Mvar n4))]] b2)) ## (ifb b  ( [[n5:= (Mvar n1)]] b1) ([[n6:= (Mvar n4)]] b2)) .
 Proof.
 intros.
 assert(H:  exists n:nat, (notoccur_nlist n [n1 ; n2;n3;n4] = true ) /\(notoccur_blist n [ b1 ; b2  ] = true)  ).
@@ -485,13 +486,13 @@ rewrite <- H0. try  repeat reflexivity. reflexivity.
 apply Ex9msg_bol with (n5:= n5)(n6:=n6)in H1.
 apply Forall_ELM_EVAL_B with (n:=z) (b:= b)in H1.
 simpl in H1.
-(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= if_then_else_B (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
- rewrite  notocc_bolmb with (n1 :=z ) (n2:=n5) (b := b) (m := if_then_else_M (Bvar z) (Mvar n1) (Mvar n2))(b1:= b1) in H1.
+(**destruct Boolblbl with (n:=z)(n1:= n5)(b:=b)(b1:= ifb (Bvar z) (Bvar n1) (Bvar n2))(b2:= b1) in H1.**)
+ rewrite  notocc_bolmb with (n1 :=z ) (n2:=n5) (b := b) (m := ifm (Bvar z) (Mvar n1) (Mvar n2))(b1:= b1) in H1.
 rewrite <- beq_nat_refl in H1.
 simpl in H1.
 rewrite <- beq_nat_refl in H1.
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
-rewrite  notocc_bolmb with (n1 :=z ) (n2:=n6) (b := b) (m:= if_then_else_M (Bvar z) (Mvar n3) (Mvar n4))(b1:= b2) in H1.
+rewrite  notocc_bolmb with (n1 :=z ) (n2:=n6) (b := b) (m:= ifm (Bvar z) (Mvar n3) (Mvar n4))(b1:= b2) in H1.
 simpl in H1; rewrite <- beq_nat_refl in H1 ;
 try rewrite H5 in H1; try rewrite H6 in H1; try rewrite H7 in H1; try rewrite H8 in H1.
 rewrite  notocc_bolmb with (n1 :=z ) (n2:=n5) (b := b) (m:= (Mvar n1))(b1:= b1) in H1. 
