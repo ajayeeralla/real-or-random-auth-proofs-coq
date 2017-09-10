@@ -330,6 +330,8 @@ Section ds_axioms.
 (** Correctness *)
 
   Axiom correctness :  forall (n:nat) (t :message), (ver (pk n)  t (sign (sk n) t)) ## TRue.
+
+  
   
 (** Existential unforgeability under adaptively chosen message attacks (UF-CMA secure) *)
 
@@ -337,9 +339,12 @@ Section ds_axioms.
     match j, ml with
       |  0 , _ => FAlse
       |  S _, nil  => FAlse             
-      | S j', cons h tl => ifb  (eqm t h) (ver (pk n) h u) (unforgb j' n tl t u)         
+      | S j', cons h tl => match h with
+                             | (sign ( pi2 (k (N n))) t1) =>   ifb  (eqm t t1) (ver (pk n) t1 u) (unforgb j' n tl t u)
+                             | _ => FAlse
+                           end
     end.    
- 
+
   Axiom UFCMA : forall (n :nat)(t u: message), (clos_mylist [ msg t; msg u] = true) /\ (insec_n_mylis n [msg t; msg u] = false) ->
                                                let j := length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))) in
                                                let ml := list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u)) in
