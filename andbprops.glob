@@ -1,0 +1,318 @@
+DIGEST fd46e0d104b92fc5c1dc921afb01f799
+Fandbprops
+R564:578 Coq.Arith.Arith <> <> lib
+R596:610 Coq.Arith.EqNat <> <> lib
+R628:641 Coq.Arith.Plus <> <> lib
+R659:672 Coq.Lists.List <> <> lib
+R691:692 Coq.Arith.Le <> <> lib
+R694:695 Coq.Arith.Gt <> <> lib
+R697:701 Coq.Arith.Minus <> <> lib
+R703:706 Coq.Bool.Bool <> <> lib
+R708:713 Coq.Setoids.Setoid <> <> lib
+R731:734 Coq.Lists.List <> <> lib
+R752:768 Coq.Lists.ListSet <> <> lib
+R787:800 Coq.Init.Peano <> <> lib
+R818:845 Coq.Structures.OrderedTypeEx <> <> lib
+R863:881 Coq.Arith.Peano_dec <> <> lib
+R899:930 Coq.Numbers.Natural.Peano.NPeano <> <> lib
+R948:961 Coq.Init.Logic <> <> lib
+R979:995 Coq.NArith.BinNat <> <> lib
+R1013:1046 Coq.Relations.Relation_Definitions <> <> lib
+R1064:1088 Coq.Classes.SetoidTactics <> <> lib
+R1106:1125 Coq.Relations.Relation_Definitions <> <> lib
+R1143:1151 Coq.Classes.Morphisms <> <> lib
+R1169:1174 Coq.Setoids.Setoid <> <> lib
+R1192:1198 Coq.Program.Program <> <> lib
+R1216:1229 Coq.Logic.JMeq <> <> lib
+ind 1445:1451 <> message
+constr 1465:1468 <> Mvar
+constr 1489:1489 <> O
+constr 1502:1504 <> acc
+constr 1518:1520 <> lsk
+constr 1534:1536 <> lnc
+constr 1550:1550 <> N
+constr 1570:1572 <> ifm
+constr 1615:1617 <> exp
+constr 1664:1667 <> pair
+constr 1702:1704 <> pi1
+constr 1729:1731 <> pi2
+constr 1756:1759 <> ggen
+constr 1785:1786 <> rr
+constr 1811:1813 <> new
+constr 1827:1829 <> act
+constr 1854:1854 <> m
+constr 1879:1880 <> nc
+constr 1905:1907 <> enc
+constr 1951:1953 <> dec
+constr 1988:1989 <> to
+constr 2014:2014 <> k
+constr 2038:2041 <> sign
+constr 2077:2082 <> reveal
+constr 2106:2106 <> i
+constr 2127:2127 <> L
+constr 2155:2156 <> rs
+constr 2193:2193 <> f
+ind 2226:2229 <> Bool
+constr 2243:2246 <> Bvar
+constr 2264:2267 <> TRue
+constr 2277:2281 <> FAlse
+constr 2291:2293 <> eqb
+constr 2320:2322 <> eqm
+constr 2355:2357 <> ifb
+constr 2393:2395 <> EQL
+constr 2428:2430 <> ver
+R1475:1478 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1479:1485 andbprops <> message ind
+R1472:1474 Coq.Init.Datatypes <> nat ind
+R1492:1498 andbprops <> message ind
+R1508:1514 andbprops <> message ind
+R1524:1530 andbprops <> message ind
+R1540:1546 andbprops <> message ind
+R1556:1559 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1560:1566 andbprops <> message ind
+R1553:1555 Coq.Init.Datatypes <> nat ind
+R1579:1582 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1590:1593 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1601:1604 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1605:1611 andbprops <> message ind
+R1594:1600 andbprops <> message ind
+R1583:1589 andbprops <> message ind
+R1575:1578 andbprops <> Bool ind
+R1628:1631 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1639:1642 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1650:1653 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1654:1660 andbprops <> message ind
+R1643:1649 andbprops <> message ind
+R1632:1638 andbprops <> message ind
+R1621:1627 andbprops <> message ind
+R1677:1680 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1688:1691 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1692:1698 andbprops <> message ind
+R1681:1687 andbprops <> message ind
+R1670:1676 andbprops <> message ind
+R1715:1718 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1719:1725 andbprops <> message ind
+R1708:1714 andbprops <> message ind
+R1742:1745 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1746:1752 andbprops <> message ind
+R1735:1741 andbprops <> message ind
+R1770:1773 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1774:1780 andbprops <> message ind
+R1763:1769 andbprops <> message ind
+R1797:1800 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1801:1807 andbprops <> message ind
+R1790:1796 andbprops <> message ind
+R1817:1823 andbprops <> message ind
+R1840:1843 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1844:1850 andbprops <> message ind
+R1833:1839 andbprops <> message ind
+R1865:1868 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1869:1875 andbprops <> message ind
+R1858:1864 andbprops <> message ind
+R1891:1894 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1895:1901 andbprops <> message ind
+R1884:1890 andbprops <> message ind
+R1917:1920 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1928:1931 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1939:1940 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1941:1947 andbprops <> message ind
+R1932:1938 andbprops <> message ind
+R1921:1927 andbprops <> message ind
+R1910:1916 andbprops <> message ind
+R1964:1966 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1974:1977 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R1978:1984 andbprops <> message ind
+R1967:1973 andbprops <> message ind
+R1957:1963 andbprops <> message ind
+R2000:2003 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2004:2010 andbprops <> message ind
+R1993:1999 andbprops <> message ind
+R2024:2027 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2028:2034 andbprops <> message ind
+R2017:2023 andbprops <> message ind
+R2052:2055 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2063:2066 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2067:2073 andbprops <> message ind
+R2056:2062 andbprops <> message ind
+R2045:2051 andbprops <> message ind
+R2092:2095 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2096:2102 andbprops <> message ind
+R2085:2091 andbprops <> message ind
+R2113:2116 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2117:2123 andbprops <> message ind
+R2110:2112 Coq.Init.Datatypes <> nat ind
+R2138:2141 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2142:2148 andbprops <> message ind
+R2131:2137 andbprops <> message ind
+R2167:2170 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2171:2177 andbprops <> message ind
+R2160:2166 andbprops <> message ind
+R2208:2212 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2213:2219 andbprops <> message ind
+R2196:2199 Coq.Init.Datatypes <> list ind
+R2201:2207 andbprops <> message ind
+R2252:2255 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2256:2259 andbprops <> Bool ind
+R2249:2251 Coq.Init.Datatypes <> nat ind
+R2270:2273 andbprops <> Bool ind
+R2284:2287 andbprops <> Bool ind
+R2301:2304 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2309:2312 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2313:2316 andbprops <> Bool ind
+R2305:2308 andbprops <> Bool ind
+R2297:2300 andbprops <> Bool ind
+R2333:2336 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2344:2347 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2348:2351 andbprops <> Bool ind
+R2337:2343 andbprops <> message ind
+R2326:2332 andbprops <> message ind
+R2366:2369 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2374:2377 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2382:2385 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2386:2389 andbprops <> Bool ind
+R2378:2381 andbprops <> Bool ind
+R2370:2373 andbprops <> Bool ind
+R2362:2365 andbprops <> Bool ind
+R2406:2409 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2417:2420 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2421:2424 andbprops <> Bool ind
+R2410:2416 andbprops <> message ind
+R2399:2405 andbprops <> message ind
+R2441:2444 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2452:2455 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2463:2466 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2467:2470 andbprops <> Bool ind
+R2456:2462 andbprops <> message ind
+R2445:2451 andbprops <> message ind
+R2434:2440 andbprops <> message ind
+ind 2705:2709 <> ilist
+constr 2739:2741 <> Nil
+constr 2757:2760 <> Cons
+R2725:2728 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2722:2724 Coq.Init.Datatypes <> nat ind
+R2745:2749 andbprops <> ilist ind
+R2751:2751 andbprops <> A var
+R2774:2776 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2786:2790 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R2791:2795 andbprops <> ilist ind
+R2800:2800 Coq.Init.Datatypes <> S constr
+R2802:2802 andbprops <> n var
+R2797:2797 andbprops <> A var
+R2777:2781 andbprops <> ilist ind
+R2785:2785 andbprops <> n var
+R2783:2783 andbprops <> A var
+R2773:2773 andbprops <> A var
+R2848:2851 andbprops <> Cons constr
+not 2835:2835 <> ::x_'::'_x
+R2916:2918 andbprops <> Nil constr
+not 2907:2907 <> ::'[]'
+R2967:2970 andbprops <> Cons constr
+R2981:2984 andbprops <> Cons constr
+R2993:2995 andbprops <> Nil constr
+not 2946:2946 <> ::'['_x_';'_'..'_';'_x_']'
+ind 3035:3040 <> oursum
+constr 3054:3056 <> msg
+constr 3081:3083 <> bol
+R3068:3071 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R3072:3077 andbprops <> oursum ind
+R3061:3067 andbprops <> message ind
+R3092:3096 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R3097:3102 andbprops <> oursum ind
+R3088:3091 andbprops <> Bool ind
+def 3168:3173 <> mylist
+R3180:3182 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R3177:3179 Coq.Init.Datatypes <> nat ind
+R3191:3195 andbprops <> ilist ind
+R3197:3202 andbprops <> oursum ind
+def 3233:3236 <> notb
+R3242:3245 andbprops <> Bool ind
+R3252:3254 andbprops <> ifb constr
+R3267:3270 andbprops <> TRue constr
+R3259:3263 andbprops <> FAlse constr
+R3256:3256 andbprops <> b var
+def 3380:3383 <> andB
+R3393:3396 andbprops <> Bool ind
+R3402:3404 andbprops <> ifb constr
+R3412:3416 andbprops <> FAlse constr
+R3409:3410 andbprops <> b2 var
+R3406:3407 andbprops <> b1 var
+R3443:3446 andbprops <> andB def
+not 3428:3428 <> ::x_'&'_x
+def 3496:3498 <> orB
+R3509:3512 andbprops <> Bool ind
+R3519:3521 andbprops <> ifb constr
+R3553:3556 andbprops <> TRue constr
+R3534:3536 andbprops <> ifb constr
+R3546:3550 andbprops <> FAlse constr
+R3541:3544 andbprops <> TRue constr
+R3538:3539 andbprops <> b2 var
+R3524:3527 andbprops <> notb def
+R3529:3530 andbprops <> b1 var
+def 3773:3773 <> G
+R3779:3781 Coq.Init.Datatypes <> nat ind
+R3788:3790 andbprops <> pi1 constr
+R3793:3796 andbprops <> ggen constr
+R3799:3799 andbprops <> N constr
+R3801:3801 andbprops <> n var
+def 3865:3865 <> g
+R3870:3872 Coq.Init.Datatypes <> nat ind
+R3879:3881 andbprops <> pi2 constr
+R3884:3887 andbprops <> ggen constr
+R3890:3890 andbprops <> N constr
+R3892:3892 andbprops <> n var
+def 4023:4024 <> pk
+R4029:4031 Coq.Init.Datatypes <> nat ind
+R4038:4040 andbprops <> pi1 constr
+R4043:4043 andbprops <> k constr
+R4046:4046 andbprops <> N constr
+R4048:4048 andbprops <> n var
+def 4065:4066 <> sk
+R4071:4073 Coq.Init.Datatypes <> nat ind
+R4080:4082 andbprops <> pi2 constr
+R4085:4085 andbprops <> k constr
+R4088:4088 andbprops <> N constr
+R4090:4090 andbprops <> n var
+def 4142:4142 <> r
+R4147:4149 Coq.Init.Datatypes <> nat ind
+R4156:4157 andbprops <> rr constr
+R4160:4160 andbprops <> N constr
+R4162:4162 andbprops <> n var
+def 4244:4252 <> chkbol_os
+R4259:4264 andbprops <> oursum ind
+R4269:4272 Coq.Init.Datatypes <> bool ind
+R4284:4284 andbprops <> a var
+R4293:4295 andbprops <> bol constr
+R4303:4306 Coq.Init.Datatypes <> true constr
+R4310:4312 andbprops <> msg constr
+R4319:4323 Coq.Init.Datatypes <> false constr
+def 4408:4416 <> chkmsg_os
+R4423:4428 andbprops <> oursum ind
+R4433:4436 Coq.Init.Datatypes <> bool ind
+R4448:4448 andbprops <> a var
+R4457:4459 andbprops <> bol constr
+R4467:4471 Coq.Init.Datatypes <> false constr
+R4475:4477 andbprops <> msg constr
+R4485:4488 Coq.Init.Datatypes <> true constr
+def 4555:4561 <> ostobol
+R4567:4572 andbprops <> oursum ind
+R4577:4580 andbprops <> Bool ind
+R4592:4592 andbprops <> a var
+R4601:4603 andbprops <> bol constr
+R4616:4618 andbprops <> msg constr
+R4626:4629 andbprops <> TRue constr
+def 4706:4712 <> ostomsg
+R4719:4724 andbprops <> oursum ind
+R4729:4735 andbprops <> message ind
+R4746:4746 andbprops <> a var
+R4755:4757 andbprops <> bol constr
+R4765:4765 andbprops <> O constr
+R4769:4771 andbprops <> msg constr
+def 4839:4855 <> conv_mlist_mylist
+R4860:4862 Coq.Init.Datatypes <> nat ind
+R4871:4875 andbprops <> ilist ind
+R4885:4885 andbprops <> n var
+R4877:4883 andbprops <> message ind
+R4890:4895 andbprops <> mylist def
+R4897:4897 andbprops <> n var
+R4909:4910 andbprops <> ml var
+R4919:4921 andbprops <> Nil constr

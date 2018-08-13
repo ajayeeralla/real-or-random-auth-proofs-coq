@@ -1,9 +1,9 @@
 (************************************************************************)
 (* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
-(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                   University of Missouri-Columbia.                   *)
 (*                                                                      *)
-(* Licensed under the MIT license, see the LICENSE file or              *)
-(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(*                                                                      *)
+(*                                                                      *)
 (************************************************************************)
 Load "ex7_2".
 

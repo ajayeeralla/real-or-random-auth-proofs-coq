@@ -1,10 +1,12 @@
+
 (************************************************************************)
 (* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
-(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                   University of Missouri-Columbia.                   *)
 (*                                                                      *)
-(* Licensed under the MIT license, see the LICENSE file or              *)
-(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(*                                                                      *)
+(*                                                                      *)
 (************************************************************************)
+
 Load "axioms".
 
 (** This library defines some tactics which will be used later and a theorem [IFTF].  #<br># *)

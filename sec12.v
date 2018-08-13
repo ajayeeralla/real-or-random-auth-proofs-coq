@@ -2,10 +2,10 @@ Load "dsaxioms".
 
 (************************************************************************)
 (* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
-(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                   University of Missouri-Columbia.                   *)
 (*                                                                      *)
-(* Licensed under the MIT license, see the LICENSE file or              *)
-(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(*                                                                      *)
+(*                                                                      *)
 (************************************************************************)
 
 (** * Formalization of the section12 in the paper *)

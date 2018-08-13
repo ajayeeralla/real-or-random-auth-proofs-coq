@@ -1,9 +1,9 @@
 (************************************************************************)
 (* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
-(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                   University of Missouri-Columbia.                   *)
 (*                                                                      *)
-(* Licensed under the MIT license, see the LICENSE file or              *)
-(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(*                                                                      *)
+(*                                                                      *)
 (************************************************************************)
 
 
@@ -672,7 +672,7 @@ Definition checkmtos (t:message) (t':oursum): bool :=
 
 Fixpoint checkmtlism (t:message) (l: list message):bool :=
   match l with
-    | nil => true
+    | nil => false
     |  cons h t' => (orb (checkmtmsg t h) (checkmtlism t t'))
   end.
 
@@ -680,7 +680,7 @@ Fixpoint checkmtlism (t:message) (l: list message):bool :=
 
 Fixpoint checkmtmylis (t:message) {m} (l: mylist m):bool :=
   match l with
-    | [] => true
+    | [] => false
     |  h::t' => (orb (checkmtos t h) (checkmtmylis t t'))
   end.
 

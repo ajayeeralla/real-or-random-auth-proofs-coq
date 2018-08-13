@@ -1,10 +1,12 @@
+
 (************************************************************************)
 (* Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>     *)
-(*                     Rohit Chadha <chadhar@missouri.edu>              *)
+(*                   University of Missouri-Columbia.                   *)
 (*                                                                      *)
-(* Licensed under the MIT license, see the LICENSE file or              *)
-(* http://en.wikipedia.org/wiki/Mit_license                             *)
+(*                                                                      *)
+(*                                                                      *)
 (************************************************************************)
+
 Load "auxthms".
              
 (** This library defines the axioms _correctness_ and _existential unforgeability under chosen message attacks_. *)
@@ -49,8 +51,8 @@ with subtrmls_msg (t:message) : list message :=
 | pi2 t1 => (app (cons (pi2 t1) nil) (subtrmls_msg t1) )
 | ggen t1 => (app (cons (ggen t1) nil) (subtrmls_msg t1) )
 | act t1 => (app (cons (act t1) nil) (subtrmls_msg t1) )
-|rr t1 => (app  (cons (rr t1) nil) (subtrmls_msg t1) )
-|rs t1 => (app (cons (rs t1) nil) (subtrmls_msg t1) )
+| rr t1 => (app  (cons (rr t1) nil) (subtrmls_msg t1) )
+| rs t1 => (app (cons (rs t1) nil) (subtrmls_msg t1) )
 | L t1 => (app (cons (L t1) nil)  (subtrmls_msg t1) )
 | m t1 => (app ( cons (m t1) nil) (subtrmls_msg t1) )
 |enc t1 t2 t3 => (app (cons (enc t1 t2 t3) nil) (app (subtrmls_msg t1) (app (subtrmls_msg t2) (subtrmls_msg t3))))
@@ -306,6 +308,14 @@ Fixpoint  insec_n_mylis (n : nat ){m}(t: mylist m) : bool :=
   end.
 Eval compute in (sk 2).
 Eval compute in insec_n_msg 1 (sign (sk 1) O).
+(** remove duplicates in a list *)
+
+  Fixpoint nodupmsg  (l : list message) : list message :=
+    match l with
+      | nil => nil
+      | cons x xs => if checkmtlism x xs then nodupmsg xs else cons x (nodupmsg xs)
+    end. 
+ 
 
 (** List of subterms of the form [sign ( sk(N n), t1),.....,sign ( sk(N n), tl)]. *)
 
@@ -317,8 +327,9 @@ Fixpoint list_skn_in_sign (n:nat) (l:list message) : list message :=
                           | _ => nil
                         end) 
                        (list_skn_in_sign n t))
-  end.
-Eval compute in (subtrmls_msg (sign (ifm TRue (dec O (sk 1)) O) new)).
+  end. 
+ 
+Definition distsigntrms n l := nodupmsg (list_skn_in_sign n l).    
 
 Section ds_axioms.
 
@@ -347,7 +358,7 @@ Section ds_axioms.
 
   Axiom UFCMA : forall (n :nat)(t u: message), (clos_mylist [ msg t; msg u] = true) /\ (insec_n_mylis n [msg t; msg u] = false) ->
                                                let j := length(list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u))) in
-                                               let ml := list_skn_in_sign n (app ( subtrmls_msg t) ( subtrmls_msg u)) in
+                                               let ml := distsigntrms n (app ( subtrmls_msg t) ( subtrmls_msg u)) in
                                                (ver (pk n) t u) ## (unforgb j n ml t u).
  
 End ds_axioms.
