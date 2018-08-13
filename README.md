@@ -1,5 +1,5 @@
-#### Machine-checked proofs of real-or-random secrecy (of Diffie-Hellman protocol), and authentication (of Station-to-Station protocol) in Coq
-Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, Rohit Chadha <chadhar@missouri.edu>            
+#### Machine-checked proofs of real-or-random secrecy (of Diffie-Hellman protocol) and authentication (of Station-to-Station protocol) in Coq
+Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, University of Missouri-Columbia, USA         
                            
 
 [//]: # (The directory machine-checked-proofs contains proofs of security properties, real-or-random secrecy of the Diffie-Hellman protocol, and authentication of the Station-to-Station protocol, and are written in Coq.)
@@ -34,4 +34,4 @@ Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, Rohit Chadha <
 ## Authors
 
 * **Ajay Kumar Eeralla** --University of Missouri-Columbia
-* **Rohit Chadha** -- University of Missouri-Columbia
+[//]: # (* **Rohit Chadha** -- University of Missouri-Columbia)
