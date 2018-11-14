@@ -2,7 +2,7 @@
 
 We formalized the proofs of real-or-random secrecy and authentication properties of the Diffie-Hellman (DH) and the Station-to-Station (STS) protocol respectively in the [Coq proof assistant](https://coq.inria.fr/).
 
-This work has been submitted to the journal ACM Transactions on Computational Logic and it is under review now.
+This work has been submitted to the journal of ACM Transactions on Computational Logic and it is under review now.
 
 **Note:** exa_b.v represents an Example a.b in the paper.
 
