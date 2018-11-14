@@ -1,4 +1,6 @@
-#### Machine-checked proofs of real-or-random secrecy (of Diffie-Hellman protocol) and authentication (of Station-to-Station protocol) in Coq
+## Machine Checked Proofs of Real-or-random Secrecy and Authentication using Computationally Complete Symbolic Attacker (CCSA)
+
+### Copy Right 
 Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, University of Missouri-Columbia, USA         
                            
 
@@ -34,4 +36,3 @@ Copyright (c) 2017, Ajay Kumar Eeralla <ae266@mail.missouri.edu>, University of 
 ## Authors
 
 * **Ajay Kumar Eeralla** --University of Missouri-Columbia
-[//]: # (* **Rohit Chadha** -- University of Missouri-Columbia)
